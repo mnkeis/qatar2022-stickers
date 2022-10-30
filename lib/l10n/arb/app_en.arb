@@ -10,6 +10,10 @@
     "statsCollectedLabel": "Collected Stickers",
     "statsSwapLabel": "Swap Stickers",
     "statsPercentLabel": "Completed Percent",
+    "shareSwapsSubject": "These are my swap stickers!",
+    "shareSwapsBody": "Hi!! I have these stickers to swap, let's check!",
+    "missingStickersBody": "Hi!! These are all my missing stickers, please check if you have some of them in your swap stack!",
+    "missingStickersSubject": "These are my missing stickers!",
 
     "@__AUTHENTICATION_FAILURES__":{},
     "emailAlreadyInUse": "The provided email address is in use by another user",

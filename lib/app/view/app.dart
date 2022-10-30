@@ -41,6 +41,12 @@ class _AppView extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFF13B9FF),
+          foregroundColor: Colors.white,
+        ),
+      ),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

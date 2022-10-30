@@ -9,6 +9,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qatar2022_stickers/features/my_swaps/my_swaps.dart';
+import 'package:qatar2022_stickers/l10n/l10n.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:stickers_repository/stickers_repository.dart';
 
 import '../../../core/widgets/widgets.dart';
@@ -32,36 +34,67 @@ class MySwapsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MySwapsCubit, Album>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ...state.teams.mapIndexed(
-                (teamIndex, team) => Column(
-                  children: [
-                    Text(
-                      '${team.name} [${team.code}]',
-                      style: Theme.of(context).textTheme.titleLarge,
+        return Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ...state.teams.mapIndexed(
+                    (teamIndex, team) => Column(
+                      children: [
+                        Text(
+                          '${team.name} [${team.code}]',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        Wrap(
+                          children: team.stickers
+                              .map(
+                                (sticker) => StickerView(
+                                  index: sticker.index,
+                                  count: sticker.qty,
+                                  countBox: 0,
+                                  color: Colors.red,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        const Divider(),
+                      ],
                     ),
-                    Wrap(
-                      children: team.stickers
-                          .map(
-                            (sticker) => StickerView(
-                              index: sticker.index,
-                              count: sticker.qty,
-                              countBox: 0,
-                              color: Colors.red,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    const Divider(),
-                  ],
+                  )
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25, bottom: 25),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    final stickers = state.teams
+                        .map(
+                          (team) => team.stickers
+                              .map(
+                                (sticker) => '${team.code}${sticker.index}',
+                              )
+                              .toList()
+                              .join(' - '),
+                        )
+                        .toList()
+                        .join('\n');
+                    Share.share(
+                      '${context.l10n.shareSwapsBody}\n\n$stickers',
+                      subject: context.l10n.shareSwapsSubject,
+                    );
+                  },
+                  foregroundColor: Colors.white,
+                  child: const Icon(Icons.share),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         );
       },
     );
