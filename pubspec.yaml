@@ -1,0 +1,66 @@
+name: qatar2022_stickers
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: 3.3.1
+
+dependencies:
+  auth_repository:
+    path: ./packages/auth_repository
+
+  bloc: ^8.1.0
+  collection: ^1.16.0
+
+  firebase_auth: ^3.10.0
+  firebase_auth_api:
+    path: ./packages/firebase_auth_api
+
+  firebase_core: ^1.23.0
+  firebase_database: ^9.1.5
+  flow_builder: ^0.0.9
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.1
+  flutter_localizations:
+    sdk: flutter
+
+  form_inputs:
+    path: ./packages/form_inputs
+
+  formz: ^0.4.1
+  intl: ^0.17.0
+  isar: ^3.0.2
+  isar_flutter_libs: ^3.0.2
+  
+  isar_stickers_api:
+    path: ./packages/isar_stickers_api
+
+  local_storage_stickers_api:
+    path: ./packages/local_storage_stickers_api
+
+  rtdb_stickers_api:
+    path: ./packages/rtdb_stickers_api
+
+  scrollable_positioned_list: ^0.3.5
+  stickers_repository:
+    path: ./packages/stickers_repository
+  
+  ui:
+    path: ./packages/ui
+  
+
+dev_dependencies:
+  bloc_test: ^9.1.0
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.0.2
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/

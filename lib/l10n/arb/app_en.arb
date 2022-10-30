@@ -1,0 +1,41 @@
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Stickers",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "stickersAppBarTitle": "Stickers",
+    "statsTotalsLabel": "Total Stickers",
+    "statsMissingLabel": "Missing Stickers",
+    "statsCollectedLabel": "Collected Stickers",
+    "statsSwapLabel": "Swap Stickers",
+    "statsPercentLabel": "Completed Percent",
+
+    "@__AUTHENTICATION_FAILURES__":{},
+    "emailAlreadyInUse": "The provided email address is in use by another user",
+    "userNotFoundOrWrongPassword": "User not found or wrong password",
+    "userDisabled": "This user is not allowed no login",
+    "userCancelled": "Operation cancelled by user",
+    "operationNotAllowed": "Error signing up, please contact support",
+    "unknownError": "Unknown error",
+
+    "@__SIGNUP_PAGE__":{},
+    "signupPageName": "Sign Up",
+    "nameInputLabel": "Name",
+    "nameInvalidText": "Invalid name",
+    "emailInputLabel": "Email",
+    "emailInvalidText": "Invalid email",
+    "passwordInputLabel": "Password",
+    "passwordInvalidText": "Weak password, must contain letters, numbers and lenght of 8",
+    "confirmPasswordInputLabel": "Confirm password",
+    "confirmPasswordInvalid": "Passwords do no match",
+    "signUpButtonLabel": "SIGN UP",
+
+    "@__LOGIN_PAGE__": {},
+    "loginPageName": "Login",
+    "loginButtonLabel": "LOGIN",
+    "loginWithGoogleButtonLabel": "Sign in with Google",
+    "loginWithAppleButtonLabel": "Sign in with Apple",
+    "createAccountButtonLabel": "CREATE ACCOUNT"
+
+}

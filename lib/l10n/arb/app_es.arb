@@ -1,0 +1,41 @@
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Figuritas",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "stickersAppBarTitle": "Figuritas",
+    "statsTotalsLabel": "Total Album",
+    "statsMissingLabel": "Faltantes",
+    "statsCollectedLabel": "Colleccionadas",
+    "statsSwapLabel": "Repetidas",
+    "statsPercentLabel": "Porcentaje Completado",
+
+    "@__AUTHENTICATION_FAILURES__":{},
+    "emailAlreadyInUse": "La direccion de email ya está en uso",
+    "userNotFoundOrWrongPassword": "Usuario inexistente o contraseña incorrecta",
+    "userDisabled": "El usuario ha sido inhabilitado para ingresar",
+    "userCancelled": "Operación cancelada por el usuario",
+    "operationNotAllowed": "Error de registro, contacte con soporte",
+    "unknownError": "Error desconocido",
+
+    "@__SIGNUP_PAGE__":{},
+    "signupPageName": "Registro",
+    "nameInputLabel": "Nombre",
+    "nameInvalidText": "Nombre inválido",
+    "emailInputLabel": "Email",
+    "emailInvalidText": "Email inválido",
+    "passwordInputLabel": "Contraseña",
+    "passwordInvalidText": "Contraseña débil, debe tener letras, números y una longitud de 8",
+    "confirmPasswordInputLabel": "Repetir constraseña",
+    "confirmPasswordInvalid": "Las contraseñas no coinciden",
+    "signUpButtonLabel": "REGISTRARSE",
+
+    "@__LOGIN_PAGE__": {},
+    "loginPageName": "Ingresar",
+    "loginButtonLabel": "INGRESAR",
+    "loginWithGoogleButtonLabel": "Ingresar con Google",
+    "loginWithAppleButtonLabel": "Ingresar con Apple",
+    "createAccountButtonLabel": "CREAR UNA CUENTA"
+
+   }
