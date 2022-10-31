@@ -8,6 +8,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qatar2022_stickers/core/functions/stickers_to_string.dart';
 import 'package:qatar2022_stickers/features/my_swaps/my_swaps.dart';
 import 'package:qatar2022_stickers/l10n/l10n.dart';
 import 'package:share_plus/share_plus.dart';
@@ -32,6 +33,7 @@ class MySwapsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<MySwapsCubit, Album>(
       builder: (context, state) {
         return Stack(
@@ -73,20 +75,10 @@ class MySwapsView extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 25, bottom: 25),
                 child: FloatingActionButton(
                   onPressed: () {
-                    final stickers = state.teams
-                        .map(
-                          (team) => team.stickers
-                              .map(
-                                (sticker) => '${team.code}${sticker.index}',
-                              )
-                              .toList()
-                              .join(' - '),
-                        )
-                        .toList()
-                        .join('\n');
+                    final stickers = stickersToString(state.teams);
                     Share.share(
-                      '${context.l10n.shareSwapsBody}\n\n$stickers',
-                      subject: context.l10n.shareSwapsSubject,
+                      '''${l10n.shareSwapsBody}\n\n$stickers\n\n${l10n.messageFooter}''',
+                      subject: l10n.shareSwapsSubject,
                     );
                   },
                   foregroundColor: Colors.white,
