@@ -27,7 +27,7 @@ class Team extends Equatable {
         name: name,
         stickers: List.generate(
           length,
-          (index) => Sticker(index: index + startIndex, qty: 0),
+          (index) => Sticker(index: index + startIndex, qty: 0, teamCode: code),
         ),
       );
 
@@ -43,7 +43,7 @@ class Team extends Equatable {
         name: name,
         stickers: List.generate(
           length,
-          (index) => Sticker(index: index + startIndex, qty: 1),
+          (index) => Sticker(index: index + startIndex, qty: 1, teamCode: code),
         ),
       );
 

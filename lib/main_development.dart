@@ -10,9 +10,11 @@ import 'package:firebase_auth_api/firebase_auth_api.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:friends_repository/friends_repository.dart';
 // import 'package:local_storage_stickers_api/local_storage_stickers_api.dart';
 import 'package:qatar2022_stickers/app/app.dart';
 import 'package:qatar2022_stickers/bootstrap.dart';
+import 'package:rtdb_friends_api/rtdb_friends_api.dart';
 import 'package:rtdb_stickers_api/rtdb_stickers_api.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stickers_repository/stickers_repository.dart';
@@ -30,6 +32,7 @@ Future<void> main() async {
     () => MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (_) => AuthRepository(FirebaseAuthApi())),
+        RepositoryProvider(create: (_) => FriendsRepository(RtdbFriendsApi())),
         RepositoryProvider(create: (_) => StickersRepository(RtdbStickersApi()))
       ],
       child: const App(),

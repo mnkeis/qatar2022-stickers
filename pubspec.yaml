@@ -14,6 +14,7 @@ dependencies:
   bloc: ^8.1.0
   collection: ^1.16.0
 
+  equatable: ^2.0.5
   firebase_auth: ^3.10.0
   firebase_auth_api:
     path: ./packages/firebase_auth_api
@@ -31,6 +32,10 @@ dependencies:
     path: ./packages/form_inputs
 
   formz: ^0.4.1
+
+  friends_repository:
+    path: ./packages/friends_repository
+
   intl: ^0.17.0
   isar: ^3.0.2
   isar_flutter_libs: ^3.0.2
@@ -41,6 +46,8 @@ dependencies:
   local_storage_stickers_api:
     path: ./packages/local_storage_stickers_api
 
+  rtdb_friends_api:
+    path: ./packages/rtdb_friends_api
   rtdb_stickers_api:
     path: ./packages/rtdb_stickers_api
 

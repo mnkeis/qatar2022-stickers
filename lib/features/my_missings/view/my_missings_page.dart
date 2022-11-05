@@ -83,7 +83,6 @@ class MyMissingsView extends StatelessWidget {
                       subject: l10n.missingStickersSubject,
                     );
                   },
-                  foregroundColor: Colors.white,
                   child: const Icon(Icons.share),
                 ),
               ),

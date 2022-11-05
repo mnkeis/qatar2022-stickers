@@ -149,7 +149,7 @@ packages:
     source: hosted
     version: "0.4.1"
   equatable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: equatable
       url: "https://pub.dartlang.org"
@@ -301,6 +301,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  friends_api:
+    dependency: transitive
+    description:
+      path: "packages/friends_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  friends_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/friends_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   frontend_server_client:
     dependency: transitive
     description:
@@ -588,6 +602,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  rtdb_friends_api:
+    dependency: "direct main"
+    description:
+      path: "packages/rtdb_friends_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   rtdb_stickers_api:
     dependency: "direct main"
     description:

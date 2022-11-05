@@ -16,6 +16,13 @@
     "missingStickersSubject": "Las figuritas que me faltan! 💪🏾",
     "messageFooter": "Para llevar el control de tus figuritas sin anuncios molestos, visita https://qatar2022-stickers.web.app",
 
+    "@__FRIENDS_PAGE":{},
+    "friendsPageTitle": "Amigos",
+    "addFriendDialogTitle": "Agrega un amigo",
+    "addFriendDIalogBody": "Ingresa el email de tu amigo",
+    "okButtonText": "OK",
+    "cancelButtonText": "Cancelar",
+
     "@__AUTHENTICATION_FAILURES__":{},
     "emailAlreadyInUse": "La direccion de email ya está en uso",
     "userNotFoundOrWrongPassword": "Usuario inexistente o contraseña incorrecta",
@@ -23,6 +30,13 @@
     "userCancelled": "Operación cancelada por el usuario",
     "operationNotAllowed": "Error de registro, contacte con soporte",
     "unknownError": "Error desconocido",
+
+    "@__FRIEND_SWAPS_PAGE":{},
+    "friendSwapsAppBarTitle": "Intercambio de figuritas",
+    "friendSwapsTitle": "Intercambiar figuritas con",
+    "totalSwapQty": "Total para intercambiar",
+    "availableToGive": "Disponibles para entregar",
+    "availableToGet": "Disponibles para recibir",
 
     "@__SIGNUP_PAGE__":{},
     "signupPageName": "Registro",

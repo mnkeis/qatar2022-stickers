@@ -16,8 +16,8 @@ class StickersRepository {
       stickersApi.album.map((album) => album ?? Qatar2022EmptyAlbum());
 
   /// A description for method getAlbum
-  Future<Album> getAlbum() async {
-    final album = await stickersApi.getAlbum();
+  Future<Album> getAlbum([String? uid]) async {
+    final album = await stickersApi.getAlbum(uid);
     if (album != null) {
       return album;
     }

@@ -81,7 +81,6 @@ class MySwapsView extends StatelessWidget {
                       subject: l10n.shareSwapsSubject,
                     );
                   },
-                  foregroundColor: Colors.white,
                   child: const Icon(Icons.share),
                 ),
               ),

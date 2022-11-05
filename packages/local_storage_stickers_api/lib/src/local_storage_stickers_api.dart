@@ -22,7 +22,7 @@ class LocalStorageStickersApi implements StickersApi {
   Stream<Album?> get album => _streamController.stream;
 
   @override
-  Future<Album?> getAlbum() async {
+  Future<Album?> getAlbum([String? uid]) async {
     final item = _sharedPreferences.getString(_kAlumKey);
     if (item != null) {
       try {

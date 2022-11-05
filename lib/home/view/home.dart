@@ -6,6 +6,8 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qatar2022_stickers/app/app.dart';
 import 'package:qatar2022_stickers/l10n/l10n.dart';
 
 import '../../features/features.dart';
@@ -37,7 +39,19 @@ class _MyHomeWidgetState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.stickersAppBarTitle)),
+      appBar: AppBar(
+        title: Text(context.l10n.stickersAppBarTitle),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.of(context).push(FriendsPage.route()),
+            icon: const Icon(Icons.people),
+          ),
+          IconButton(
+            onPressed: () => context.read<AuthBloc>().add(LogoutRequested()),
+            icon: const Icon(Icons.logout_outlined),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,

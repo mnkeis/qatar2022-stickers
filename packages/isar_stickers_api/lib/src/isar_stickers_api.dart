@@ -23,7 +23,7 @@ class IsarStickersApi implements StickersApi {
 
   /// Gets the album
   @override
-  Future<Album?> getAlbum() async {
+  Future<Album?> getAlbum([String? id]) async {
     final isarAlbum = await _isarInstance.isarAlbums.get(_kAlbumId);
     return isarAlbum?.toDomain();
   }

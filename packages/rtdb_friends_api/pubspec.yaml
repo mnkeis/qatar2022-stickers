@@ -1,0 +1,19 @@
+name: rtdb_friends_api
+description: Implementation of friends_api.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  firebase_auth: ^3.10.0
+  firebase_database: ^9.0.17
+  friends_api:
+    path:
+      ../friends_api
+
+dev_dependencies:
+  mocktail: ^0.3.0
+  test: ^1.19.2
+  very_good_analysis: ^3.0.1

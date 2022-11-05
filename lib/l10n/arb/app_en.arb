@@ -16,6 +16,20 @@
     "missingStickersSubject": "These are my missing stickers!",
     "messageFooter": "To carry on control of your stickers without announcements, visit https://qatar2022-stickers.web.app",
 
+    "@__FRIENDS_PAGE":{},
+    "friendsPageTitle": "Friends",
+    "addFriendDialogTitle": "Add friend",
+    "addFriendDIalogBody": "Enter your friend's email",
+    "okButtonText": "OK",
+    "cancelButtonText": "Cancel",
+
+    "@__FRIEND_SWAPS_PAGE":{},
+    "friendSwapsAppBarTitle": "Swap Stickers",
+    "friendSwapsTitle": "Swap Stickers with",
+    "totalSwapQty": "Total stickers to swap",
+    "availableToGive": "Available to give",
+    "availableToGet": "Available to get",
+
     "@__AUTHENTICATION_FAILURES__":{},
     "emailAlreadyInUse": "The provided email address is in use by another user",
     "userNotFoundOrWrongPassword": "User not found or wrong password",

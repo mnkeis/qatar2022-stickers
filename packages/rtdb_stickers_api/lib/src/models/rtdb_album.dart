@@ -19,7 +19,7 @@ class RtdbAlbum extends Album {
         final stickers = (rawTeam['stickers'] as List<dynamic>).map((s) {
           final rawSticker =
               Map<String, dynamic>.from(s as Map<dynamic, dynamic>);
-          return Sticker.fromJson(rawSticker);
+          return Sticker.fromJson(rawSticker, teamCode: code);
         }).toList();
         return Team(code: code, name: name, stickers: stickers);
       }).toList();

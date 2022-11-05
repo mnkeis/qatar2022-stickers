@@ -11,7 +11,7 @@ abstract class StickersApi {
   Stream<Album?> get album;
 
   /// Gets the album
-  Future<Album?> getAlbum();
+  Future<Album?> getAlbum([String? id]);
 
   /// Save the album
   Future<void> saveAlbum(Album album);

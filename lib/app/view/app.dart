@@ -40,6 +40,9 @@ class _AppView extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF13B9FF),
         ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          foregroundColor: Colors.white,
+        ),
       ),
       darkTheme: ThemeData.dark().copyWith(
         floatingActionButtonTheme: const FloatingActionButtonThemeData(

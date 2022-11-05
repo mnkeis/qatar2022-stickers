@@ -31,14 +31,26 @@ class RtdbStickersApi implements StickersApi {
   }
 
   @override
-  Future<Album?> getAlbum() async {
+  Future<Album?> getAlbum([String? uid]) async {
     final user = _auth.currentUser;
     if (user == null) {
       return null;
     }
-    final dbRef = _database.ref('albums/${user.uid}');
+    if (user.email != null) {
+      final userRef = _database.ref(
+        'users/${user.email!.replaceAll('@', '_at_').replaceAll('.', '_')}',
+      );
+      await userRef.set({
+        'uid': user.uid,
+        'name': user.displayName,
+      });
+    }
+    final dbRef = _database.ref('albums/${uid ?? user.uid}');
     final snapshot = await dbRef.get();
     final data = snapshot.value;
+    if (data == null) {
+      return null;
+    }
     return RtdbAlbum.fromRtdb(data);
   }
 

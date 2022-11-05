@@ -6,6 +6,7 @@ class StickerView extends StatelessWidget {
     required this.index,
     required this.countBox,
     this.color = Colors.green,
+    this.teamCode,
     this.increment,
     this.decrement,
     super.key,
@@ -15,10 +16,16 @@ class StickerView extends StatelessWidget {
   final int index;
   final int countBox;
   final Color color;
+  final String? teamCode;
   final VoidCallback? increment;
   final VoidCallback? decrement;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final textStyle =
+        teamCode == null ? textTheme.titleLarge : textTheme.titleSmall;
+    final text = teamCode != null ? '$teamCode $index' : '$index';
+    final size = teamCode == null ? 50.0 : 60.0;
     return Stack(
       children: [
         Padding(
@@ -37,15 +44,12 @@ class StickerView extends StatelessWidget {
                 ],
                 color: count > 0 ? color : Colors.grey,
               ),
-              height: 50,
-              width: 50,
+              height: size,
+              width: size,
               child: Center(
                 child: Text(
-                  '$index',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(color: Colors.white),
+                  text,
+                  style: textStyle?.copyWith(color: Colors.white),
                 ),
               ),
             ),
