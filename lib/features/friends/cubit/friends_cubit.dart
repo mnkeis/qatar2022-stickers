@@ -15,7 +15,6 @@ class FriendsCubit extends Cubit<FriendsState> {
       final friends = await _friendsRepository.get();
       emit(FriendsLoaded(friends));
     } catch (e) {
-      print(e);
       emit(FriendsError(e.toString()));
     }
   }
@@ -25,7 +24,7 @@ class FriendsCubit extends Cubit<FriendsState> {
       await _friendsRepository.add(email: email);
       await load();
     } catch (e) {
-      print(e);
+      emit(FriendsError(e.toString()));
     }
   }
 }

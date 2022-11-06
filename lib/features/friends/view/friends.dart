@@ -131,11 +131,11 @@ class _AddFriendDialogState extends State<AddFriendDialog> {
             children: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cancel'),
+                child: Text(context.l10n.cancelButtonText),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(email.value),
-                child: const Text('OK'),
+                child: Text(context.l10n.okButtonText),
               )
             ],
           ),
