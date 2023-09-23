@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:friends_repository/friends_repository.dart';
@@ -11,20 +13,15 @@ class FriendsCubit extends Cubit<FriendsState> {
 
   Future<void> load() async {
     emit(FriendsLoading());
-    try {
-      final friends = await _friendsRepository.get();
-      emit(FriendsLoaded(friends));
-    } catch (e) {
-      emit(FriendsError(e.toString()));
-    }
+    final result = await _friendsRepository.get();
+    result.fold(
+      (e) => emit(FriendsError(e.failure)),
+      (friends) => emit(FriendsLoaded(friends)),
+    );
   }
 
   Future<void> addFriend(String email) async {
-    try {
-      await _friendsRepository.add(email: email);
-      await load();
-    } catch (e) {
-      emit(FriendsError(e.toString()));
-    }
+    final result = await _friendsRepository.add(email: email);
+    result.fold((e) => emit(FriendsError(e.failure)), (r) => unawaited(load()));
   }
 }

@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:friends_repository/friends_repository.dart';
 import 'package:qatar2022_stickers/l10n/l10n.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:ui/ui.dart';
 
+import '../../../core/widgets/widgets.dart';
 import '../../features.dart';
 import '../cubit/friends_cubit.dart';
 
@@ -38,7 +40,6 @@ class FriendsView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final cubit = context.read<FriendsCubit>();
-
           final email = await showDialog<String>(
             context: context,
             builder: (context) => const AddFriendDialog(),
@@ -52,10 +53,34 @@ class FriendsView extends StatelessWidget {
       body: BlocConsumer<FriendsCubit, FriendsState>(
         listener: (context, state) {
           if (state is FriendsError) {
+            late String message;
+            Widget? child;
+            switch (state.error) {
+              case FriendsFailure.unknown:
+              case FriendsFailure.notLoggedIn:
+                message = l10n.friendsFailureUnknown;
+                break;
+              case FriendsFailure.canNotAddYourself:
+                message = l10n.friendsFailureAddingYourself;
+                break;
+              case FriendsFailure.userNotFound:
+                message = l10n.friendsFailureUserNotFound;
+                child = IconButton(
+                  onPressed: () {
+                    Share.share(
+                      l10n.inviteFriendToApp,
+                      subject: l10n.stickersAppBarTitle,
+                    );
+                  },
+                  icon: const Icon(Icons.share),
+                );
+                break;
+            }
             showDialog<void>(
               context: context,
-              builder: (context) => AlertDialog(
-                content: Text(state.error),
+              builder: (context) => ErrorDialog(
+                message: message,
+                child: child,
               ),
             );
           }

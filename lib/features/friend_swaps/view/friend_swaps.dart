@@ -40,7 +40,7 @@ class FriendSwapsPage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '${context.l10n.friendSwapsTitle}: ${friend.name}',
+                  '${context.l10n.friendSwapsTitle} ${friend.name}',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 20),
@@ -65,8 +65,8 @@ class FriendSwapsView extends StatelessWidget {
         if (state is FriendSwapsError) {
           showDialog<void>(
             context: context,
-            builder: (context) => AlertDialog(
-              content: Text(state.error),
+            builder: (context) => ErrorDialog(
+              message: l10n.friendSwapsFriendFailure,
             ),
           );
         }
@@ -87,44 +87,49 @@ class FriendSwapsView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Column(
-                    children: [
-                      Text(
-                        l10n.availableToGet,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 10),
-                      ...state.stickersToGet
-                          .map(
-                            (sticker) => StickerView(
-                              count: 1,
-                              index: sticker.index,
-                              countBox: 1,
-                              teamCode: sticker.teamCode,
-                            ),
-                          )
-                          .toList(),
-                    ],
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          l10n.availableToGet,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 10),
+                        ...state.stickersToGet
+                            .map(
+                              (sticker) => StickerView(
+                                count: 1,
+                                index: sticker.index,
+                                countBox: 1,
+                                teamCode: sticker.teamCode,
+                              ),
+                            )
+                            .toList(),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        l10n.availableToGive,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(height: 10),
-                      ...state.stickersToGive
-                          .map(
-                            (sticker) => StickerView(
-                              count: 1,
-                              index: sticker.index,
-                              countBox: 1,
-                              color: Colors.red,
-                              teamCode: sticker.teamCode,
-                            ),
-                          )
-                          .toList(),
-                    ],
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          l10n.availableToGive,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 10),
+                        ...state.stickersToGive
+                            .map(
+                              (sticker) => StickerView(
+                                count: 1,
+                                index: sticker.index,
+                                countBox: 1,
+                                color: Colors.red,
+                                teamCode: sticker.teamCode,
+                              ),
+                            )
+                            .toList(),
+                      ],
+                    ),
                   ),
                 ],
               )
