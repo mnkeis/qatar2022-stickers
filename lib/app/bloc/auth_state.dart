@@ -5,7 +5,6 @@ enum AuthStatus {
   unauthenticated,
 }
 
-@immutable
 class AuthState extends Equatable {
   const AuthState._({
     required this.status,

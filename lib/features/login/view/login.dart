@@ -41,13 +41,12 @@ class _LoginForm extends StatelessWidget {
     final l10n = context.l10n;
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state.status.isSubmissionFailure && state.exception != null) {
+        if (state.status.isFailure && state.exception != null) {
           String errorMessage;
           switch (state.exception!.failure) {
             case LoginFailure.invalidPassword:
             case LoginFailure.userNotFound:
               errorMessage = l10n.userNotFoundOrWrongPassword;
-              break;
             case LoginFailure.unknown:
               errorMessage = l10n.unknownError;
           }
@@ -149,7 +148,7 @@ class _LoginButton extends StatelessWidget {
     final l10n = context.l10n;
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
+        return state.status.isInProgress
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -157,7 +156,7 @@ class _LoginButton extends StatelessWidget {
                 key: const Key(
                   'loginForm_continue_raisedButton',
                 ),
-                onPressed: state.email.valid && state.password.valid
+                onPressed: state.email.isValid && state.password.isValid
                     ? () => context.read<LoginCubit>().logInWithCredentials()
                     : null,
                 label: l10n.loginButtonLabel,
@@ -184,7 +183,9 @@ class _PasswordInput extends StatelessWidget {
               context.read<LoginCubit>().passwordChanged(password),
           labelText: l10n.passwordInputLabel,
           helperText: '',
-          errorText: state.password.invalid ? l10n.passwordInvalidText : null,
+          errorText: state.password.isValid || state.password.isPure
+              ? null
+              : l10n.passwordInvalidText,
         );
       },
     );
@@ -205,7 +206,9 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           labelText: l10n.emailInputLabel,
           helperText: '',
-          errorText: state.email.invalid ? l10n.emailInvalidText : null,
+          errorText: state.email.isValid || state.email.isPure
+              ? null
+              : l10n.emailInvalidText,
         );
       },
     );

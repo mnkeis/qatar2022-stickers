@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
-import 'package:meta/meta.dart';
 
 part 'login_state.dart';
 
@@ -20,7 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(
       state.copyWith(
         email: email,
-        status: Formz.validate([email, state.password]),
+        formValid: Formz.validate([email, state.password]),
       ),
     );
   }
@@ -32,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(
       state.copyWith(
         password: password,
-        status: Formz.validate([state.email, password]),
+        formValid: Formz.validate([state.email, password]),
       ),
     );
   }
@@ -40,10 +39,10 @@ class LoginCubit extends Cubit<LoginState> {
   /// Login with email and password button has been pressed,
   /// start the login flow
   Future<void> logInWithCredentials() async {
-    if (!state.status.isValidated) {
+    if (!state.formValid) {
       return;
     }
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     final result = await _authRepository.loginWithEmailAndPassword(
       email: state.email.value,
       password: state.password.value,
@@ -52,33 +51,33 @@ class LoginCubit extends Cubit<LoginState> {
       (f) => emit(
         state.copyWith(
           exception: f,
-          status: FormzStatus.submissionFailure,
+          status: FormzSubmissionStatus.failure,
         ),
       ),
-      (_) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+      (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
     );
   }
 
   /// Login with google button has been pressed,
   /// start the login flow
   Future<void> logInWithGoogle() async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     final result = await _authRepository.loginWithGoogle();
     result.fold(
       (f) => emit(
         state.copyWith(
           exception: f,
-          status: FormzStatus.submissionFailure,
+          status: FormzSubmissionStatus.failure,
         ),
       ),
-      (_) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+      (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
     );
   }
 
   /// Login with apple button has been pressed,
   /// start the login flow
   Future<void> logInWithApple() async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     // final result = await _authRepository.logInWithApple();
     // result.fold(
     //   (f) => emit(

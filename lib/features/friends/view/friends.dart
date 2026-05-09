@@ -11,24 +11,28 @@ import '../../features.dart';
 import '../cubit/friends_cubit.dart';
 
 class FriendsPage extends StatelessWidget {
-  const FriendsPage({super.key});
+  const FriendsPage(this.albumId, {super.key});
 
-  static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => const FriendsPage());
+  static Route<void> route(String albumId) {
+    return MaterialPageRoute<void>(builder: (_) => FriendsPage(albumId));
   }
+
+  final String albumId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
           FriendsCubit(context.read<FriendsRepository>())..load(),
-      child: const FriendsView(),
+      child: FriendsView(albumId),
     );
   }
 }
 
 class FriendsView extends StatelessWidget {
-  const FriendsView({super.key});
+  const FriendsView(this.albumId, {super.key});
+
+  final String albumId;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +63,8 @@ class FriendsView extends StatelessWidget {
               case FriendsFailure.unknown:
               case FriendsFailure.notLoggedIn:
                 message = l10n.friendsFailureUnknown;
-                break;
               case FriendsFailure.canNotAddYourself:
                 message = l10n.friendsFailureAddingYourself;
-                break;
               case FriendsFailure.userNotFound:
                 message = l10n.friendsFailureUserNotFound;
                 child = IconButton(
@@ -74,7 +76,6 @@ class FriendsView extends StatelessWidget {
                   },
                   icon: const Icon(Icons.share),
                 );
-                break;
             }
             showDialog<void>(
               context: context,
@@ -98,8 +99,12 @@ class FriendsView extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     trailing: IconButton(
-                      onPressed: () => Navigator.of(context)
-                          .push(FriendSwapsPage.route(state.friends[index])),
+                      onPressed: () => Navigator.of(context).push(
+                        FriendSwapsPage.route(
+                          albumId: albumId,
+                          friend: state.friends[index],
+                        ),
+                      ),
                       icon: const Icon(Icons.swap_horiz),
                     ),
                   );
@@ -146,7 +151,7 @@ class _AddFriendDialogState extends State<AddFriendDialog> {
             onChanged: _onMailChanged,
             labelText: context.l10n.emailInputLabel,
             helperText: context.l10n.addFriendDIalogBody,
-            errorText: email.invalid ? context.l10n.emailInvalidText : null,
+            errorText: email.isNotValid ? context.l10n.emailInvalidText : null,
           ),
         ),
         Padding(
@@ -161,10 +166,10 @@ class _AddFriendDialogState extends State<AddFriendDialog> {
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(email.value),
                 child: Text(context.l10n.okButtonText),
-              )
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

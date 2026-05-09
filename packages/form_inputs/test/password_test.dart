@@ -5,11 +5,11 @@ void main() {
   group('Password validation', () {
     test('valid with a good password', () {
       const password = Password.dirty('VeryGoodPassword1234');
-      expect(password.valid, true);
+      expect(password.isValid, true);
     });
     test('invalid with a weak password', () {
       const password = Password.dirty('1234');
-      expect(password.valid, false);
+      expect(password.isValid, false);
     });
   });
 }

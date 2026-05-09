@@ -14,7 +14,7 @@ class Name extends FormzInput<String, NameValidationError> {
   const Name.pure() : super.pure('');
 
   /// {@macro email}
-  const Name.dirty([String value = '']) : super.dirty(value);
+  const Name.dirty([super.value = '']) : super.dirty();
 
   static final RegExp _nameRegExp = RegExp(
     '[a-zA-Z].{1,}',

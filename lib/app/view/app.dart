@@ -35,21 +35,21 @@ class _AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          foregroundColor: Colors.white,
-        ),
-      ),
-      darkTheme: ThemeData.dark().copyWith(
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color(0xFF13B9FF),
-          foregroundColor: Colors.white,
-        ),
-      ),
+      // theme: ThemeData(
+      //   appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+      //   colorScheme: ColorScheme.fromSwatch(
+      //     accentColor: const Color(0xFF13B9FF),
+      //   ),
+      //   floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      //     foregroundColor: Colors.white,
+      //   ),
+      // ),
+      // darkTheme: ThemeData.dark().copyWith(
+      //   floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      //     backgroundColor: Color(0xFF13B9FF),
+      //     foregroundColor: Colors.white,
+      //   ),
+      // ),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

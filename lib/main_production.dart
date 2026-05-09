@@ -34,7 +34,9 @@ Future<void> main() async {
       providers: [
         RepositoryProvider(create: (_) => AuthRepository(FirebaseAuthApi())),
         RepositoryProvider(create: (_) => FriendsRepository(RtdbFriendsApi())),
-        RepositoryProvider(create: (_) => StickersRepository(RtdbStickersApi()))
+        RepositoryProvider(
+          create: (_) => StickersRepository(RtdbStickersApi()),
+        ),
       ],
       child: const App(),
     ),

@@ -12,6 +12,6 @@ List<Page<void>> onGenerateAuthViewPages(
     case AuthStatus.unauthenticated:
       return [Login.page()];
     case AuthStatus.authenticated:
-      return [MyHomePage.page()];
+      return [HomePage.page()];
   }
 }

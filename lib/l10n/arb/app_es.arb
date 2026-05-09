@@ -4,6 +4,10 @@
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
     },
+    "@__HOME_PAGE": {},
+    "homePageSelectAlbumTitle": "Seleccioná tu álbum",
+    "homePageAddAlbum": "Agregar otro álbum",
+
     "stickersAppBarTitle": "Figuritas",
     "statsTotalsLabel": "Total Album",
     "statsMissingLabel": "Faltantes",

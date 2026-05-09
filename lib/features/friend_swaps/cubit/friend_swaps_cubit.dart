@@ -16,10 +16,10 @@ class FriendSwapsCubit extends Cubit<FriendSwapsState> {
   final StickersRepository _stickersRepository;
   final Friend _friend;
 
-  Future<void> load() async {
+  Future<void> load(String id) async {
     emit(FriendSwapsLoading());
     try {
-      final myAlbum = await _stickersRepository.getAlbum();
+      final myAlbum = await _stickersRepository.getAlbum(id);
       final friendAlbum = await _stickersRepository.getAlbum(_friend.uid);
 
       final mySwaps = myAlbum.teams

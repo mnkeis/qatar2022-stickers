@@ -4,6 +4,10 @@
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     },
+    "@__HOME_PAGE": {},
+    "homePageSelectAlbumTitle": "Select your album",
+    "homePageAddAlbum": "Add a new album",
+
     "stickersAppBarTitle": "Stickers",
     "statsTotalsLabel": "Total Stickers",
     "statsMissingLabel": "Missing Stickers",

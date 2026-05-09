@@ -1,3 +1,4 @@
+/// Stickers API
 library stickers_api;
 
 export 'src/models/models.dart';

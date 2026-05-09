@@ -16,6 +16,8 @@ enum FriendsFailure {
 }
 
 /// {@template friends_exception}
+/// Exceptions thrown from friends_api
+/// {@endtemplate}
 class FriendsException implements Exception {
   /// {@macro friends_exception}
   FriendsException(this.failure);

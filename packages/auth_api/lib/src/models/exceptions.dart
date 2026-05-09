@@ -1,4 +1,6 @@
 /// {@template auth_exception}
+/// Auth exceptions base class
+/// {@endtemplate}
 class AuthException implements Exception {}
 
 /// {@template login_failure}
@@ -48,7 +50,7 @@ class SignupException extends AuthException {
   final SignupFailure failure;
 }
 
-/// {template logout_exception}
+/// {@template logout_exception}
 /// Exception thrown when logout fails
 /// {@endtemplate}
 class LogoutException extends AuthException {}

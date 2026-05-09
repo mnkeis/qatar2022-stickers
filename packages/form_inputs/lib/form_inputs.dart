@@ -1,3 +1,4 @@
+/// Form Inputs definitions
 library form_inputs;
 
 export './src/confirmed_password.dart';

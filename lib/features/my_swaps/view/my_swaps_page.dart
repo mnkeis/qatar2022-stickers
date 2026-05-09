@@ -17,12 +17,14 @@ import 'package:stickers_repository/stickers_repository.dart';
 import '../../../core/widgets/widgets.dart';
 
 class MySwapsPage extends StatelessWidget {
-  const MySwapsPage({super.key});
+  const MySwapsPage(this.albumId, {super.key});
 
+  final String albumId;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MySwapsCubit(context.read<StickersRepository>())..load(),
+      create: (_) =>
+          MySwapsCubit(context.read<StickersRepository>())..load(albumId),
       child: const MySwapsView(),
     );
   }
@@ -65,7 +67,7 @@ class MySwapsView extends StatelessWidget {
                         const Divider(),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -84,7 +86,7 @@ class MySwapsView extends StatelessWidget {
                   child: const Icon(Icons.share),
                 ),
               ),
-            )
+            ),
           ],
         );
       },

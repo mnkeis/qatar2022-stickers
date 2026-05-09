@@ -13,19 +13,35 @@ class IsarStickersApi implements StickersApi {
 
   final Isar _isarInstance;
 
+  @override
+  Future<List<Album>> getUserAlbums() async {
+    return [];
+  }
+
   /// Listen to Album changes
   @override
-  Stream<Album?> get album {
-    return _isarInstance.isarAlbums
-        .watchObject(_kAlbumId)
-        .map((isarAlbum) => isarAlbum?.toDomain());
+  Stream<Album> album(String id) {
+    return _isarInstance.isarAlbums.watchObject(int.parse(id)).map(
+          (isarAlbum) =>
+              isarAlbum?.toDomain() ??
+              Album(
+                id: id,
+                name: '',
+                teams: const [],
+              ),
+        );
   }
 
   /// Gets the album
   @override
-  Future<Album?> getAlbum([String? id]) async {
+  Future<Album> getAlbum(String id) async {
     final isarAlbum = await _isarInstance.isarAlbums.get(_kAlbumId);
-    return isarAlbum?.toDomain();
+    return isarAlbum?.toDomain() ??
+        Album(
+          id: id,
+          name: '',
+          teams: const [],
+        );
   }
 
   /// Save the album

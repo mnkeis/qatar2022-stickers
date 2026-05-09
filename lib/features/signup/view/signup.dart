@@ -40,18 +40,15 @@ class _SignupForm extends StatelessWidget {
     final l10n = context.l10n;
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
-        if (state.status.isSubmissionSuccess) {
+        if (state.status.isSuccess) {
           Navigator.of(context).pop();
-        } else if (state.status.isSubmissionFailure &&
-            state.exception != null) {
+        } else if (state.status.isFailure && state.exception != null) {
           String errorMessage;
           switch (state.exception!.failure) {
             case SignupFailure.userAlreadyExists:
               errorMessage = l10n.emailAlreadyInUse;
-              break;
             case SignupFailure.unknown:
               errorMessage = l10n.unknownError;
-              break;
           }
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -98,9 +95,9 @@ class _SignupForm extends StatelessWidget {
                       padding: constraints.maxWidth < 500
                           ? const EdgeInsets.symmetric(horizontal: 70)
                           : const EdgeInsets.symmetric(horizontal: 90),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
+                        children: [
                           _SignupButton(
                             key: Key('signupForm_continue_raisedButton'),
                           ),
@@ -130,13 +127,13 @@ class _SignupButton extends StatelessWidget {
     final l10n = context.l10n;
     return BlocBuilder<SignupCubit, SignupState>(
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
+        return state.status.isInProgress
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SubmitButton(
                 key: key,
-                onPressed: state.email.valid && state.password.valid
+                onPressed: state.email.isValid && state.password.isValid
                     ? () => context.read<SignupCubit>().signUpFormSubmitted()
                     : null,
                 label: l10n.signUpButtonLabel,
@@ -163,7 +160,9 @@ class _PasswordInput extends StatelessWidget {
               context.read<SignupCubit>().passwordChanged(password),
           labelText: l10n.passwordInputLabel,
           helperText: '',
-          errorText: state.password.invalid ? l10n.passwordInvalidText : null,
+          errorText: state.password.isValid || state.password.isPure
+              ? null
+              : l10n.passwordInvalidText,
         );
       },
     );
@@ -188,9 +187,10 @@ class _ConfirmPasswordInput extends StatelessWidget {
               context.read<SignupCubit>().confirmedPasswordChanged(password),
           labelText: l10n.confirmPasswordInputLabel,
           helperText: '',
-          errorText: state.confirmedPassword.invalid
-              ? l10n.confirmPasswordInvalid
-              : null,
+          errorText:
+              state.confirmedPassword.isValid || state.confirmedPassword.isPure
+                  ? null
+                  : l10n.confirmPasswordInvalid,
         );
       },
     );
@@ -211,7 +211,9 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.read<SignupCubit>().emailChanged(email),
           labelText: l10n.emailInputLabel,
           helperText: '',
-          errorText: state.email.invalid ? l10n.emailInvalidText : null,
+          errorText: state.email.isValid || state.email.isPure
+              ? null
+              : l10n.emailInvalidText,
         );
       },
     );
@@ -232,7 +234,9 @@ class _NameInput extends StatelessWidget {
           onChanged: (name) => context.read<SignupCubit>().nameChanged(name),
           labelText: l10n.nameInputLabel,
           helperText: '',
-          errorText: state.name.invalid ? l10n.nameInvalidText : null,
+          errorText: state.name.isValid || state.name.isPure
+              ? null
+              : l10n.nameInvalidText,
         );
       },
     );

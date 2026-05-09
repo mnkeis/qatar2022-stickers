@@ -9,15 +9,18 @@ import '../cubit/friend_swaps_cubit.dart';
 
 class FriendSwapsPage extends StatelessWidget {
   const FriendSwapsPage({
+    required this.albumId,
     required this.friend,
     super.key,
   });
 
+  final String albumId;
   final Friend friend;
 
-  static Route<void> route(Friend friend) {
+  static Route<void> route({required String albumId, required Friend friend}) {
     return MaterialPageRoute<void>(
       builder: (_) => FriendSwapsPage(
+        albumId: albumId,
         friend: friend,
       ),
     );
@@ -29,7 +32,7 @@ class FriendSwapsPage extends StatelessWidget {
       create: (context) => FriendSwapsCubit(
         stickersRepository: context.read<StickersRepository>(),
         friend: friend,
-      )..load(),
+      )..load(albumId),
       child: Scaffold(
         appBar: AppBar(
           title: Text(context.l10n.friendSwapsAppBarTitle),
@@ -95,16 +98,14 @@ class FriendSwapsView extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 10),
-                        ...state.stickersToGet
-                            .map(
-                              (sticker) => StickerView(
-                                count: 1,
-                                index: sticker.index,
-                                countBox: 1,
-                                teamCode: sticker.teamCode,
-                              ),
-                            )
-                            .toList(),
+                        ...state.stickersToGet.map(
+                          (sticker) => StickerView(
+                            count: 1,
+                            index: sticker.index,
+                            countBox: 1,
+                            teamCode: sticker.teamCode,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -117,22 +118,20 @@ class FriendSwapsView extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 10),
-                        ...state.stickersToGive
-                            .map(
-                              (sticker) => StickerView(
-                                count: 1,
-                                index: sticker.index,
-                                countBox: 1,
-                                color: Colors.red,
-                                teamCode: sticker.teamCode,
-                              ),
-                            )
-                            .toList(),
+                        ...state.stickersToGive.map(
+                          (sticker) => StickerView(
+                            count: 1,
+                            index: sticker.index,
+                            countBox: 1,
+                            color: Colors.red,
+                            teamCode: sticker.teamCode,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           );
         }

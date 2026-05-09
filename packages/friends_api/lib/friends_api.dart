@@ -1,3 +1,4 @@
+/// Friends API
 library friends_api;
 
 export 'src/friends_api.dart';

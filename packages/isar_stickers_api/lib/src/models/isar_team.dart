@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:isar_stickers_api/src/models/models.dart';
-import 'package:stickers_api/stickers_api.dart' show Team, Sticker;
+import 'package:stickers_api/stickers_api.dart' show Sticker, Team;
 
 part 'isar_team.g.dart';
 
