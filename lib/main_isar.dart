@@ -19,7 +19,6 @@ import 'l10n/l10n.dart';
 Future<void> main() async {
   final isar = await Isar.open([IsarAlbumSchema]);
   final stickersApi = IsarStickersApi(isar);
-  print('bootstraping');
   await bootstrap(
     () => MultiRepositoryProvider(
       providers: [

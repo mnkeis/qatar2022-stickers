@@ -20,7 +20,7 @@ class FriendsLoaded extends FriendsState {
 
 class FriendsError extends FriendsState {
   FriendsError(this.error);
-  final String error;
+  final FriendsFailure error;
 
   @override
   List<Object?> get props => [error];

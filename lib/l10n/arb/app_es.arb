@@ -22,6 +22,20 @@
     "addFriendDIalogBody": "Ingresa el email de tu amigo",
     "okButtonText": "OK",
     "cancelButtonText": "Cancelar",
+    "inviteFriendToApp": "Amigo! te invito a usar esta app para intercambiar figuritas del mundial, dale!! https://qatar2022-stickers.web.app",
+
+    "@__FRIENDS_FAILURE":{},
+    "friendsFailureAddingYourself": "No puedes agregarte a vos mismo como amigo",
+    "friendsFailureUserNotFound": "No encontramos a tu amigo: invitalo a cargar sus figuritas en Qatar2022-Stickers!",
+    "friendsFailureUnknown": "Error inesperado: esto no debería estar pasando...🤦🏾‍♂️",
+
+    "@__FRIEND_SWAPS_PAGE":{},
+    "friendSwapsAppBarTitle": "Intercambio de figuritas",
+    "friendSwapsTitle": "Intercambias con",
+    "totalSwapQty": "Total para intercambiar",
+    "availableToGive": "Para entregar",
+    "availableToGet": "Para recibir",
+    "friendSwapsFriendFailure": "No es posible acceder a los datos del ábum de tu amigo, pedile que te agregue como amigo así pueden intercambiar figuritas!",
 
     "@__AUTHENTICATION_FAILURES__":{},
     "emailAlreadyInUse": "La direccion de email ya está en uso",
@@ -30,13 +44,6 @@
     "userCancelled": "Operación cancelada por el usuario",
     "operationNotAllowed": "Error de registro, contacte con soporte",
     "unknownError": "Error desconocido",
-
-    "@__FRIEND_SWAPS_PAGE":{},
-    "friendSwapsAppBarTitle": "Intercambio de figuritas",
-    "friendSwapsTitle": "Intercambiar figuritas con",
-    "totalSwapQty": "Total para intercambiar",
-    "availableToGive": "Disponibles para entregar",
-    "availableToGet": "Disponibles para recibir",
 
     "@__SIGNUP_PAGE__":{},
     "signupPageName": "Registro",

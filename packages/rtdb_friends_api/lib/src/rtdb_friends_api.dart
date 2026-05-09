@@ -21,18 +21,22 @@ class RtdbFriendsApi implements FriendsApi {
   Future<List<Friend>> get() async {
     final user = _auth.currentUser;
     if (user == null) {
-      throw Exception();
+      throw FriendsException(FriendsFailure.notLoggedIn);
     }
-    final dbRef = _database.ref('friends/${user.uid}');
-    final snapshot = await dbRef.get();
-    final value = snapshot.value;
-    if (value != null && value is Map<dynamic, dynamic>) {
-      final valueMap = Map<String, dynamic>.from(value);
-      return valueMap.entries
-          .map((e) => RtdbFriend.fromRtdb(e.key, e.value))
-          .toList();
+    try {
+      final dbRef = _database.ref('friends/${user.uid}');
+      final snapshot = await dbRef.get();
+      final value = snapshot.value;
+      if (value != null && value is Map<dynamic, dynamic>) {
+        final valueMap = Map<String, dynamic>.from(value);
+        return valueMap.entries
+            .map((e) => RtdbFriend.fromRtdb(e.key, e.value))
+            .toList();
+      }
+      return [];
+    } catch (_) {
+      throw FriendsException(FriendsFailure.unknown);
     }
-    return [];
   }
 
   @override
@@ -41,27 +45,31 @@ class RtdbFriendsApi implements FriendsApi {
   }) async {
     final user = _auth.currentUser;
     if (user == null) {
-      throw Exception();
+      throw FriendsException(FriendsFailure.notLoggedIn);
     }
     if (user.email == email) {
-      throw Exception('cant-add-yourself');
+      throw FriendsException(FriendsFailure.canNotAddYourself);
     }
 
-    final userRef = _database
-        .ref('users/${email.replaceAll('@', '_at_').replaceAll('.', '_')}');
-    final userSnapshot = await userRef.get();
-    final userValue = userSnapshot.value;
-    if (userValue != null && userValue is Map<dynamic, dynamic>) {
-      final userMap = Map<String, dynamic>.from(userValue);
-      final uid = userMap['uid'] as String;
-      final name = userMap['name'] as String;
-      final dbRef = _database.ref('friends/${user.uid}/$uid');
-      await dbRef.set({
-        'email': email,
-        'name': name,
-      });
-      return;
+    try {
+      final userRef = _database
+          .ref('users/${email.replaceAll('@', '_at_').replaceAll('.', '_')}');
+      final userSnapshot = await userRef.get();
+      final userValue = userSnapshot.value;
+      if (userValue != null && userValue is Map<dynamic, dynamic>) {
+        final userMap = Map<String, dynamic>.from(userValue);
+        final uid = userMap['uid'] as String;
+        final name = userMap['name'] as String;
+        final dbRef = _database.ref('friends/${user.uid}/$uid');
+        await dbRef.set({
+          'email': email,
+          'name': name,
+        });
+        return;
+      }
+    } catch (e) {
+      throw FriendsException(FriendsFailure.unknown);
     }
-    throw Exception('user-not-found');
+    throw FriendsException(FriendsFailure.userNotFound);
   }
 }

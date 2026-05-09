@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:friends_api/friends_api.dart';
 
 /// {@template friends_repository}
@@ -11,13 +12,26 @@ class FriendsRepository {
   final FriendsApi friendsApi;
 
   /// A description for method get
-  Future<List<Friend>> get() => friendsApi.get();
+  Future<Either<FriendsException, List<Friend>>> get() async {
+    try {
+      final friends = await friendsApi.get();
+      return right(friends);
+    } on FriendsException catch (e) {
+      return left(e);
+    }
+  }
 
   /// A description for method add
-  Future<void> add({
+  Future<Either<FriendsException, Unit>> add({
     required String email,
-  }) =>
-      friendsApi.add(
+  }) async {
+    try {
+      await friendsApi.add(
         email: email,
       );
+      return right(unit);
+    } on FriendsException catch (e) {
+      return left(e);
+    }
+  }
 }

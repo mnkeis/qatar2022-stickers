@@ -22,6 +22,12 @@
     "addFriendDIalogBody": "Enter your friend's email",
     "okButtonText": "OK",
     "cancelButtonText": "Cancel",
+    "inviteFriendToApp": "Hey! I invite you to use this app so we can swap qatar2022 stickers!!, please visit https://qatar2022-stickers.web.app",
+
+    "@__FRIENDS_FAILURE":{},
+    "friendsFailureAddingYourself": "You can't add yourself as friend",
+    "friendsFailureUserNotFound": "Friend not found, invite him to add his album data to Qatar2022-Stickers!",
+    "friendsFailureUnknown": "Unexpected error: this should had not happened",
 
     "@__FRIEND_SWAPS_PAGE":{},
     "friendSwapsAppBarTitle": "Swap Stickers",
@@ -29,6 +35,7 @@
     "totalSwapQty": "Total stickers to swap",
     "availableToGive": "Available to give",
     "availableToGet": "Available to get",
+    "friendSwapsFriendFailure": "It was not possible to access your friend's album data, ask him to add you as friend so as to share stickers together",
 
     "@__AUTHENTICATION_FAILURES__":{},
     "emailAlreadyInUse": "The provided email address is in use by another user",

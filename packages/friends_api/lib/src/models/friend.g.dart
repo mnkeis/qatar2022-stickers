@@ -6,7 +6,7 @@ Friend _$FriendFromJson(Map<String, dynamic> json) => Friend(
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$FriendToJson(Friend instance) => <String, dynamic>{ 
+Map<String, dynamic> _$FriendToJson(Friend instance) => <String, dynamic>{
       'uid': instance.uid,
       'email': instance.email,
       'name': instance.name,
