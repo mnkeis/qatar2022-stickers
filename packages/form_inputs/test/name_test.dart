@@ -5,15 +5,15 @@ void main() {
   group('Name validation', () {
     test('valid with a non empty name', () {
       const name = Name.dirty('aa');
-      expect(name.valid, true);
+      expect(name.isValid, true);
     });
     test('invalid with an empty name', () {
       const name = Name.dirty();
-      expect(name.valid, false);
+      expect(name.isValid, false);
     });
     test('invalid with a single character name', () {
       const name = Name.dirty('a');
-      expect(name.valid, false);
+      expect(name.isValid, false);
     });
   });
 }

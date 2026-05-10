@@ -1,12 +1,14 @@
 import 'package:stickers_api/stickers_api.dart';
 
-/// {@template qatar2022_empty_album}
-/// Creates an empty Qatar2022 Album
+/// {@template fifa_world_cup_qatar2022_empty_album}
+/// Creates an empty Fifa World Cup Qatar2022 Album
 /// {@endtemplate}
-class Qatar2022EmptyAlbum extends Album {
+class FifaWorldCupQatar2022EmptyAlbum extends Album {
   /// {@macro qatar2022_album}
-  Qatar2022EmptyAlbum()
+  FifaWorldCupQatar2022EmptyAlbum()
       : super(
+          id: '',
+          name: 'Fifa World Cup Qatar 2022',
           teams: [
             Team.empty(name: 'FIFA World Cup', code: 'FWC', startIndex: 0),
             Team.empty(name: 'Qatar', code: 'QAT'),

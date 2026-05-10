@@ -13,12 +13,15 @@ import 'package:stickers_repository/stickers_repository.dart';
 import '../../features.dart';
 
 class MyStatsPage extends StatelessWidget {
-  const MyStatsPage({super.key});
+  const MyStatsPage(this.albumId, {super.key});
+
+  final String albumId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MyStatsCubit(context.read<StickersRepository>())..load(),
+      create: (_) =>
+          MyStatsCubit(context.read<StickersRepository>())..load(albumId),
       child: const MyStatsView(),
     );
   }

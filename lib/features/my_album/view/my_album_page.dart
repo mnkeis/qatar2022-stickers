@@ -17,12 +17,15 @@ import '../../features.dart';
 import '../widgets/widgets.dart';
 
 class MyAlbumPage extends StatelessWidget {
-  const MyAlbumPage({super.key});
+  const MyAlbumPage(this.albumId, {super.key});
+
+  final String albumId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MyAlbumCubit(context.read<StickersRepository>())..load(),
+      create: (_) =>
+          MyAlbumCubit(context.read<StickersRepository>())..load(albumId),
       child: const MyAlbumView(),
     );
   }
@@ -123,22 +126,20 @@ class _MyAlbumViewState extends State<MyAlbumView> {
           return Stack(
             alignment: AlignmentDirectional.topCenter,
             children: [
-              Expanded(
-                child: ScrollablePositionedList.builder(
-                  shrinkWrap: true,
-                  itemScrollController: _scrollController,
-                  itemPositionsListener: _positionsListener,
-                  itemCount: state.teams.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return const SizedBox(height: 70);
-                    } else {
-                      final teamIndex = index - 1;
-                      final team = state.teams[teamIndex];
-                      return TeamView(team: team, teamIndex: teamIndex);
-                    }
-                  },
-                ),
+              ScrollablePositionedList.builder(
+                shrinkWrap: true,
+                itemScrollController: _scrollController,
+                itemPositionsListener: _positionsListener,
+                itemCount: state.teams.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return const SizedBox(height: 70);
+                  } else {
+                    final teamIndex = index - 1;
+                    final team = state.teams[teamIndex];
+                    return TeamView(team: team, teamIndex: teamIndex);
+                  }
+                },
               ),
               SizedBox(
                 width: double.infinity,

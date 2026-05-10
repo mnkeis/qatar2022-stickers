@@ -1,5 +1,6 @@
 import 'package:stickers_api/stickers_api.dart';
 import 'package:stickers_repository/src/models/models.dart';
+import 'package:uuid/uuid.dart';
 
 /// {@template stickers_repository}
 /// Repository to manage your stickers
@@ -11,19 +12,26 @@ class StickersRepository {
   /// API interface for this repository
   final StickersApi stickersApi;
 
+  /// A description for method getAlbum
+  Future<List<Album>> getUserAlbums() => stickersApi.getUserAlbums();
+
   /// Stream of album updates
-  Stream<Album> get album =>
-      stickersApi.album.map((album) => album ?? Qatar2022EmptyAlbum());
+  Stream<Album> album(String id) => stickersApi.album(id);
 
   /// A description for method getAlbum
-  Future<Album> getAlbum([String? uid]) async {
-    final album = await stickersApi.getAlbum(uid);
-    if (album != null) {
-      return album;
-    }
-    return Qatar2022EmptyAlbum();
-  }
+  Future<Album> getAlbum(String id) => stickersApi.getAlbum(id);
+
+  /// Returns available albums
+  List<Album> availableAlbums() => [
+        ConmebolCopaAmericaUsa2024EmptyAlbum(),
+        FifaWorldCupQatar2022EmptyAlbum(),
+      ];
 
   /// Save album
-  Future<void> saveAlbum(Album album) => stickersApi.saveAlbum(album);
+  Future<void> saveAlbum(Album album) {
+    if (album.id == '') {
+      return stickersApi.saveAlbum(album.copyWith(id: const Uuid().v4()));
+    }
+    return stickersApi.saveAlbum(album);
+  }
 }

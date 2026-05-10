@@ -7,13 +7,13 @@ void main() {
       const password = Password.dirty('12345678');
       final confirmedPassword =
           ConfirmedPassword.dirty(password: password.value, value: '12345678');
-      expect(confirmedPassword.valid, true);
+      expect(confirmedPassword.isValid, true);
     });
     test('invalid if do not match password', () {
       const password = Password.dirty('12345678');
       final confirmedPassword =
           ConfirmedPassword.dirty(password: password.value, value: '123456');
-      expect(confirmedPassword.valid, false);
+      expect(confirmedPassword.isValid, false);
     });
   });
 }

@@ -1,9 +1,13 @@
 import 'package:auth_api/auth_api.dart';
 
+/// {@template firebase_auth_login_exception}
+/// Exception thrown when a firebase login fails
+/// {@endtemplate}
 class FirebaseAuthLoginException extends LoginException {
-  FirebaseAuthLoginException._(LoginFailure failure) : super(failure);
+  FirebaseAuthLoginException._(super.failure);
 
-  factory FirebaseAuthLoginException.fromFirebaseAuthException(e) {
+  /// Builds exception from firebase exception code
+  factory FirebaseAuthLoginException.fromFirebaseAuthException(String e) {
     switch (e) {
       case 'wrong-password':
         return FirebaseAuthLoginException._(LoginFailure.invalidPassword);
@@ -15,10 +19,14 @@ class FirebaseAuthLoginException extends LoginException {
   }
 }
 
+/// {@template firebase_auth_signup_exception}
+/// Exception thrown when a firebase signup fails
+/// {@endtemplate}
 class FirebaseAuthSignupException extends SignupException {
-  FirebaseAuthSignupException._(SignupFailure failure) : super(failure);
+  FirebaseAuthSignupException._(super.failure);
 
-  factory FirebaseAuthSignupException.fromFirebaseAuthException(e) {
+  /// Builds exception from firebase exception code
+  factory FirebaseAuthSignupException.fromFirebaseAuthException(String e) {
     switch (e) {
       case 'email-already-in-use':
         return FirebaseAuthSignupException._(SignupFailure.userAlreadyExists);
@@ -27,52 +35,3 @@ class FirebaseAuthSignupException extends SignupException {
     }
   }
 }
-
-// /// {@template auth_failure}
-// /// Base class for failures returned from repository
-// /// {@endtemplate}
-// @freezed
-// class AuthFailure with _$AuthFailure {
-//   /// Authentication procedure cancelled by user
-//   const factory AuthFailure.userCancelled() = UserCancelled;
-
-//   /// Failure thrown during signup
-//   const factory AuthFailure.emailAlreadyInUse() = EmailAlreadyInUser;
-
-//   /// Failure thrown during login
-//   const factory AuthFailure.userDisabled() = UserDisabled;
-
-//   /// Failure with email or password login, we hide wich one is
-//   const factory AuthFailure.userNotFoundOrWrongPassword() =
-//       UserNotFoundOrWrongPassword;
-
-//   /// Failure thrown by firebase related to missconfiguration
-//   const factory AuthFailure.operationNotAllowed() = OperationNotAllowed;
-
-//   /// Failure returned when we don't know what happened
-//   const factory AuthFailure.unknownError() = UnknownError;
-
-//   /// Failure that indicates that we did something wrong in our code
-//   const factory AuthFailure.irrecuperableError() = IrrecuperableError;
-
-//   /// Failure while loging out
-//   const factory AuthFailure.logOutFailure() = LogOutFailure;
-
-//   /// Static method to return failures from FairebaseAuthException codes
-//   factory AuthFailure.authFailureFromFirebaseCode(String e) {
-//     switch (e) {
-//       case 'user-disabled':
-//         return const AuthFailure.userDisabled();
-//       case 'email-already-in-use':
-//         return const AuthFailure.emailAlreadyInUse();
-//       case 'operation-not-allowed':
-//         return const AuthFailure.operationNotAllowed();
-//       case 'wrong-password':
-//         return const AuthFailure.userNotFoundOrWrongPassword();
-//       case 'user-not-found':
-//         return const AuthFailure.userNotFoundOrWrongPassword();
-//       default:
-//         return const AuthFailure.irrecuperableError();
-//     }
-//   }
-// }

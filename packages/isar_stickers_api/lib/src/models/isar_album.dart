@@ -11,6 +11,7 @@ part 'isar_album.g.dart';
 class IsarAlbum {
   /// {@macro isar_album}
   IsarAlbum({
+    this.name,
     this.id,
     this.teams,
   });
@@ -18,6 +19,7 @@ class IsarAlbum {
   /// Builds collection from
   factory IsarAlbum.fromDomain({required Album album, Id id = 1}) {
     return IsarAlbum(
+      name: album.name,
       id: id,
       teams: album.teams.map(IsarTeam.fromDomain).toList(),
     );
@@ -26,11 +28,16 @@ class IsarAlbum {
   /// Isar id
   Id? id;
 
+  /// Album name
+  String? name;
+
   /// A description for teams
   List<IsarTeam>? teams;
 
   /// Exports the instance to a domain class
   Album toDomain() => Album(
+        id: id.toString(),
+        name: name ?? '',
         teams:
             teams?.map((isarTeam) => isarTeam.toDomain()).toList() ?? <Team>[],
       );

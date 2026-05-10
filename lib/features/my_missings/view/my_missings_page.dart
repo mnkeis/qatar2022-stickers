@@ -17,13 +17,15 @@ import 'package:stickers_repository/stickers_repository.dart';
 import '../../../core/widgets/widgets.dart';
 
 class MyMissingsPage extends StatelessWidget {
-  const MyMissingsPage({super.key});
+  const MyMissingsPage(this.albumId, {super.key});
+
+  final String albumId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          MyMissingsCubit(context.read<StickersRepository>())..load(),
+          MyMissingsCubit(context.read<StickersRepository>())..load(albumId),
       child: const MyMissingsView(),
     );
   }
@@ -67,7 +69,7 @@ class MyMissingsView extends StatelessWidget {
                         const Divider(),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -86,7 +88,7 @@ class MyMissingsView extends StatelessWidget {
                   child: const Icon(Icons.share),
                 ),
               ),
-            )
+            ),
           ],
         );
       },

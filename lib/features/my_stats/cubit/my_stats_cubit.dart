@@ -15,8 +15,8 @@ class MyStatsCubit extends Cubit<MyStatsState> {
 
   final StickersRepository stickersRepository;
 
-  Future<void> load() async {
-    final album = await stickersRepository.getAlbum();
+  Future<void> load(String id) async {
+    final album = await stickersRepository.getAlbum(id);
     final totalStickers = album.teams.fold(
       0,
       (previousQuantity, team) =>

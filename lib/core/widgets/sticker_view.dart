@@ -40,7 +40,7 @@ class StickerView extends StatelessWidget {
                   BoxShadow(
                     offset: Offset(0, 1),
                     blurRadius: 3,
-                  )
+                  ),
                 ],
                 color: count > 0 ? color : Colors.grey,
               ),
@@ -66,7 +66,7 @@ class StickerView extends StatelessWidget {
                 BoxShadow(
                   offset: Offset(0, 1),
                   blurRadius: 3,
-                )
+                ),
               ],
             ),
             child: Center(child: Text('$count')),

@@ -14,7 +14,8 @@ class SignupState extends Equatable {
     this.email = const Email.pure(),
     this.password = const Password.pure(),
     this.confirmedPassword = const ConfirmedPassword.pure(),
-    this.status = FormzStatus.pure,
+    this.formValid = false,
+    this.status = FormzSubmissionStatus.initial,
     this.exception,
   });
 
@@ -30,8 +31,11 @@ class SignupState extends Equatable {
   /// User confirmed password that should match user password
   final ConfirmedPassword confirmedPassword;
 
-  /// Form status
-  final FormzStatus status;
+  /// From valid
+  final bool formValid;
+
+  /// Form Submission status
+  final FormzSubmissionStatus status;
 
   /// Signup failure
   final SignupException? exception;
@@ -52,7 +56,8 @@ class SignupState extends Equatable {
     Password? password,
     bool? maskPassword,
     ConfirmedPassword? confirmedPassword,
-    FormzStatus? status,
+    bool? formValid,
+    FormzSubmissionStatus? status,
     SignupException? exception,
   }) {
     return SignupState(
@@ -60,6 +65,7 @@ class SignupState extends Equatable {
       email: email ?? this.email,
       password: password ?? this.password,
       confirmedPassword: confirmedPassword ?? this.confirmedPassword,
+      formValid: formValid ?? this.formValid,
       status: status ?? this.status,
       exception: exception ?? this.exception,
     );

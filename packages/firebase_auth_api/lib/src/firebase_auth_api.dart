@@ -1,17 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:auth_api/auth_api.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+import 'package:firebase_auth_api/src/auth_failure.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
-import 'auth_failure.dart';
 
 /// {@template authentication_repository}
 /// Repository which manages user authentication.
@@ -62,7 +61,7 @@ class FirebaseAuthApi implements AuthApi {
   Future<void> passwordRecovery(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (_) {
+    } on firebase_auth.FirebaseAuthException catch (_) {
       throw AuthException();
     } on Exception catch (_) {
       rethrow;
@@ -136,9 +135,9 @@ class FirebaseAuthApi implements AuthApi {
       if (user != null) {
         return user.toUser;
       }
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      throw FirebaseAuthSignupException.fromFirebaseAuthException(e);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      developer.log(e.toString());
+      throw FirebaseAuthSignupException.fromFirebaseAuthException(e.code);
     }
     throw SignupException(SignupFailure.unknown);
   }
@@ -158,8 +157,8 @@ class FirebaseAuthApi implements AuthApi {
       if (user != null) {
         return user.toUser;
       }
-    } on FirebaseAuthException catch (e) {
-      throw FirebaseAuthLoginException.fromFirebaseAuthException(e);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw FirebaseAuthLoginException.fromFirebaseAuthException(e.code);
     }
     throw LoginException(LoginFailure.unknown);
   }
@@ -194,8 +193,8 @@ class FirebaseAuthApi implements AuthApi {
           }
         }
       }
-    } on FirebaseAuthException catch (e) {
-      throw FirebaseAuthLoginException.fromFirebaseAuthException(e);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw FirebaseAuthLoginException.fromFirebaseAuthException(e.code);
     }
     throw LoginException(LoginFailure.unknown);
   }

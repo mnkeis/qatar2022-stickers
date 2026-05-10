@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// {@template google_login_button}
 /// Google login button widget
 /// Displays a 'Sign In With Google' Button
-/// {@endtemplate google_login_button}
+/// {@endtemplate}
 class GoogleLoginButton extends StatelessWidget {
   /// {@macro google_login_button}
   const GoogleLoginButton({

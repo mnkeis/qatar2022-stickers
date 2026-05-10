@@ -19,7 +19,7 @@ class SignupCubit extends Cubit<SignupState> {
     emit(
       state.copyWith(
         name: name,
-        status: Formz.validate([
+        formValid: Formz.validate([
           name,
           state.email,
           state.password,
@@ -35,7 +35,7 @@ class SignupCubit extends Cubit<SignupState> {
     emit(
       state.copyWith(
         email: email,
-        status: Formz.validate([
+        formValid: Formz.validate([
           email,
           state.name,
           state.password,
@@ -56,7 +56,7 @@ class SignupCubit extends Cubit<SignupState> {
       state.copyWith(
         password: password,
         confirmedPassword: confirmedPassword,
-        status: Formz.validate([
+        formValid: Formz.validate([
           state.name,
           state.email,
           password,
@@ -76,7 +76,7 @@ class SignupCubit extends Cubit<SignupState> {
     emit(
       state.copyWith(
         confirmedPassword: confirmedPassword,
-        status: Formz.validate([
+        formValid: Formz.validate([
           state.name,
           state.email,
           state.password,
@@ -89,8 +89,8 @@ class SignupCubit extends Cubit<SignupState> {
   /// Form has been submitted, call signup on auth repository
   Future<void> signUpFormSubmitted() async {
     // ignore: always_put_control_body_on_new_line
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (!state.formValid) return;
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     final result = await _authRepository.createUserWithEmailAndPassword(
       email: state.email.value,
       password: state.password.value,
@@ -100,10 +100,10 @@ class SignupCubit extends Cubit<SignupState> {
       (f) => emit(
         state.copyWith(
           exception: f,
-          status: FormzStatus.submissionFailure,
+          status: FormzSubmissionStatus.failure,
         ),
       ),
-      (_) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+      (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
     );
   }
 }

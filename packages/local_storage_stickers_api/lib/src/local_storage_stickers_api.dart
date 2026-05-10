@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stickers_api/stickers_api.dart';
 
-const _kAlumKey = 'Album';
+const _kAlbumsKey = 'StickerAlbums';
 
 /// {@template local_storage_stickers_api}
 /// Implementation for stickers_api
@@ -15,28 +15,49 @@ class LocalStorageStickersApi implements StickersApi {
 
   final SharedPreferences _sharedPreferences;
 
-  final StreamController<Album?> _streamController =
+  final StreamController<Album> _streamController =
       StreamController.broadcast();
 
   @override
-  Stream<Album?> get album => _streamController.stream;
-
-  @override
-  Future<Album?> getAlbum([String? uid]) async {
-    final item = _sharedPreferences.getString(_kAlumKey);
+  Future<List<Album>> getUserAlbums() async {
+    final item = _sharedPreferences.getString(_kAlbumsKey);
     if (item != null) {
       try {
         final json = jsonDecode(item);
-        final album = Album.fromJson(json as Map<String, dynamic>);
-        if (_streamController.hasListener && !_streamController.isPaused) {
-          _streamController.add(album);
+        if (json is Map<String, dynamic>) {
+          final albums = json.values
+              .map((value) => Album.fromJson(value as Map<String, dynamic>))
+              .toList();
+          return albums;
         }
-        return album;
       } on FormatException {
-        await _sharedPreferences.remove(_kAlumKey);
+        await _sharedPreferences.remove(_kAlbumsKey);
       }
     }
-    return null;
+    return [];
+  }
+
+  @override
+  Stream<Album> album(String id) => _streamController.stream;
+
+  @override
+  Future<Album> getAlbum(String id) async {
+    final item = _sharedPreferences.getString(_kAlbumsKey);
+    if (item != null) {
+      try {
+        final json = jsonDecode(item);
+        if (json is Map<String, dynamic> && json[id] != null) {
+          final album = Album.fromJson(json[id] as Map<String, dynamic>);
+          if (_streamController.hasListener && !_streamController.isPaused) {
+            _streamController.add(album);
+          }
+          return album;
+        }
+      } on FormatException {
+        await _sharedPreferences.remove(_kAlbumsKey);
+      }
+    }
+    throw Exception('invalid-id');
   }
 
   @override
@@ -44,8 +65,21 @@ class LocalStorageStickersApi implements StickersApi {
     if (_streamController.hasListener && !_streamController.isPaused) {
       _streamController.add(album);
     }
-    final json = album.toJson();
-    final raw = jsonEncode(json);
-    await _sharedPreferences.setString(_kAlumKey, raw);
+    final item = _sharedPreferences.getString(_kAlbumsKey);
+    Map<String, dynamic>? json;
+    if (item != null) {
+      try {
+        final rawJson = jsonDecode(item);
+        if (rawJson is Map<String, dynamic>) {
+          json = rawJson;
+        }
+      } on FormatException {
+        await _sharedPreferences.remove(_kAlbumsKey);
+      }
+    }
+    final albums = json ?? <String, dynamic>{};
+    albums[album.id] = album.toJson();
+    final raw = jsonEncode(albums);
+    await _sharedPreferences.setString(_kAlbumsKey, raw);
   }
 }

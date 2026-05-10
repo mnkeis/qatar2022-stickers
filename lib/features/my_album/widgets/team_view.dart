@@ -8,9 +8,9 @@ import '../my_album.dart';
 
 class TeamView extends StatelessWidget {
   const TeamView({
-    super.key,
     required this.team,
     required this.teamIndex,
+    super.key,
   });
 
   final Team team;
