@@ -1,0 +1,76 @@
+import 'package:stickers_api/stickers_api.dart';
+
+/// {@template fifa_world_cup_eeuu_mexico_canada2026_empty_album}
+/// Creates an empty Fifa World Cup EEUU Mexico Canada 2026 Album
+/// {@endtemplate}
+class FifaWorldCupEEUUMexicoCanada2026EmptyAlbum extends Album {
+  /// {@macro fifa_world_cup_eeuu_mexico_canada2026_empty_album}
+  FifaWorldCupEEUUMexicoCanada2026EmptyAlbum()
+    : super(
+        id: '',
+        name: 'Fifa World Cup EEUU Mexico Canada 2026',
+        teams: [
+          Team.empty(
+            name: 'FIFA World Cup',
+            code: 'FWC',
+            startIndex: 0,
+            length: 9,
+          ),
+          Team.empty(name: 'Mexico', code: 'MEX', length: 20),
+          Team.empty(name: 'South Africa', code: 'RSA', length: 20),
+          Team.empty(name: 'Korea', code: 'KOR', length: 20),
+          Team.empty(name: 'Czech Republic', code: 'CZE', length: 20),
+          Team.empty(name: 'Canada', code: 'CAN', length: 20),
+          Team.empty(name: 'Bosnia and Herzegovina', code: 'BIH', length: 20),
+          Team.empty(name: 'Qatar', code: 'QAT', length: 20),
+          Team.empty(name: 'Switzerland', code: 'SUI', length: 20),
+          Team.empty(name: 'Brazil', code: 'BRA', length: 20),
+          Team.empty(name: 'Morocco', code: 'MAR', length: 20),
+          Team.empty(name: 'Haiti', code: 'HAI', length: 20),
+          Team.empty(name: 'Scotland', code: 'SCO', length: 20),
+          Team.empty(name: 'United States', code: 'USA', length: 20),
+          Team.empty(name: 'Paraguay', code: 'PAR', length: 20),
+          Team.empty(name: 'Australia', code: 'AUS', length: 20),
+          Team.empty(name: 'Turkey', code: 'TUR', length: 20),
+          Team.empty(name: 'Germany', code: 'GER', length: 20),
+          Team.empty(name: 'Curaçao', code: 'CUW', length: 20),
+          Team.empty(name: 'Ivory Coast', code: 'CIV', length: 20),
+          Team.empty(name: 'Ecuador', code: 'ECU', length: 20),
+          Team.empty(name: 'Netherlands', code: 'NED', length: 20),
+          Team.empty(name: 'Japan', code: 'JPN', length: 20),
+          Team.empty(name: 'Sweden', code: 'SWE', length: 20),
+          Team.empty(name: 'Tunisia', code: 'TUN', length: 20),
+          Team.empty(name: 'Belgium', code: 'BEL', length: 20),
+          Team.empty(name: 'Egypt', code: 'EGY', length: 20),
+          Team.empty(name: 'Iran', code: 'IRN', length: 20),
+          Team.empty(name: 'New Zealand', code: 'NZL', length: 20),
+          Team.empty(name: 'Spain', code: 'ESP', length: 20),
+          Team.empty(name: 'Cape Verde', code: 'CPV', length: 20),
+          Team.empty(name: 'Saudi Arabia', code: 'KSA', length: 20),
+          Team.empty(name: 'Uruguay', code: 'URU', length: 20),
+          Team.empty(name: 'France', code: 'FRA', length: 20),
+          Team.empty(name: 'Senegal', code: 'SEN', length: 20),
+          Team.empty(name: 'Iraq', code: 'IRQ', length: 20),
+          Team.empty(name: 'Norway', code: 'NOR', length: 20),
+          Team.empty(name: 'Argentina', code: 'ARG', length: 20),
+          Team.empty(name: 'Algeria', code: 'ALG', length: 20),
+          Team.empty(name: 'Austria', code: 'AUT', length: 20),
+          Team.empty(name: 'Jordan', code: 'JOR', length: 20),
+          Team.empty(name: 'Portugal', code: 'POR', length: 20),
+          Team.empty(name: 'Congo', code: 'COD', length: 20),
+          Team.empty(name: 'Uzbekistan', code: 'UZB', length: 20),
+          Team.empty(name: 'Colombia', code: 'COL', length: 20),
+          Team.empty(name: 'England', code: 'ENG', length: 20),
+          Team.empty(name: 'Croatia', code: 'CRO', length: 20),
+          Team.empty(name: 'Ghana', code: 'GHA', length: 20),
+          Team.empty(name: 'Panama', code: 'PAN', length: 20),
+          Team.empty(
+            name: 'Fifa World Cup',
+            code: 'FWC',
+            startIndex: 9,
+            length: 11,
+          ),
+          Team.empty(name: 'Coca Cola', code: 'CC', length: 14),
+        ],
+      );
+}

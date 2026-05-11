@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.keising.qatar2022.stickers.qatar2022-stickers" "\0"
-            VALUE "FileDescription", "qatar2022_stickers" "\0"
+            VALUE "CompanyName", "com.keising.album-master" "\0"
+            VALUE "FileDescription", "album_master" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "qatar2022_stickers" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.keising.qatar2022.stickers.qatar2022-stickers. All rights reserved." "\0"
-            VALUE "OriginalFilename", "qatar2022_stickers.exe" "\0"
-            VALUE "ProductName", "Qatar2022 Stickers" "\0"
+            VALUE "InternalName", "album_master" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.keising.album-master. All rights reserved." "\0"
+            VALUE "OriginalFilename", "album_master.exe" "\0"
+            VALUE "ProductName", "Album Master" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

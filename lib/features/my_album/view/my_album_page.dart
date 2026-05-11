@@ -91,33 +91,75 @@ class _MyAlbumViewState extends State<MyAlbumView> {
               child: CircularProgressIndicator(),
             );
           }
+          final highlightColor = Theme.of(
+            context,
+          ).colorScheme.primary.withOpacity(0.08);
+          final selectedBorder = Border.all(
+            color: Theme.of(context).colorScheme.primary,
+            width: 2,
+          );
           if (kIsWeb) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            return Stack(
               children: [
-                TeamSelection(
-                  teams: state.teams,
-                  selectedTeam: state.teams[_currentTeam],
-                  onChanged: (team) {
-                    if (team != null) {
-                      final index = state.teams.indexOf(team);
-                      animateToIndex(index);
-                      setState(() {
-                        _currentTeam = index;
-                      });
-                    }
-                  },
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TeamSelection(
+                      teams: state.teams,
+                      selectedTeam: state.teams[_currentTeam],
+                      onChanged: (team) {
+                        if (team != null) {
+                          final index = state.teams.indexOf(team);
+                          animateToIndex(index);
+                          setState(() {
+                            _currentTeam = index;
+                          });
+                        }
+                      },
+                    ),
+                    Expanded(
+                      child: ScrollablePositionedList.builder(
+                        shrinkWrap: true,
+                        itemScrollController: _scrollController,
+                        itemPositionsListener: _positionsListener,
+                        itemCount: state.teams.length,
+                        itemBuilder: (context, teamIndex) {
+                          final team = state.teams[teamIndex];
+                          final isSelected = teamIndex == _currentTeam;
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 6,
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isSelected ? highlightColor : null,
+                              borderRadius: BorderRadius.circular(12),
+                              border: isSelected ? selectedBorder : null,
+                              boxShadow: [
+                                if (isSelected)
+                                  BoxShadow(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary.withOpacity(0.12),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                              ],
+                            ),
+                            child: TeamView(team: team, teamIndex: teamIndex),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: ScrollablePositionedList.builder(
-                    shrinkWrap: true,
-                    itemScrollController: _scrollController,
-                    itemPositionsListener: _positionsListener,
-                    itemCount: state.teams.length,
-                    itemBuilder: (context, teamIndex) {
-                      final team = state.teams[teamIndex];
-                      return TeamView(team: team, teamIndex: teamIndex);
-                    },
+                Positioned(
+                  bottom: 24,
+                  right: 24,
+                  child: FloatingActionButton(
+                    onPressed: () => animateToIndex(0),
+                    tooltip: 'Scroll to top',
+                    child: const Icon(Icons.arrow_upward),
                   ),
                 ),
               ],
@@ -137,7 +179,29 @@ class _MyAlbumViewState extends State<MyAlbumView> {
                   } else {
                     final teamIndex = index - 1;
                     final team = state.teams[teamIndex];
-                    return TeamView(team: team, teamIndex: teamIndex);
+                    final isSelected = teamIndex == _currentTeam;
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected ? highlightColor : null,
+                        borderRadius: BorderRadius.circular(12),
+                        border: isSelected ? selectedBorder : null,
+                        boxShadow: [
+                          if (isSelected)
+                            BoxShadow(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.12),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                        ],
+                      ),
+                      child: TeamView(team: team, teamIndex: teamIndex),
+                    );
                   }
                 },
               ),
@@ -163,6 +227,15 @@ class _MyAlbumViewState extends State<MyAlbumView> {
                       ),
                     ),
                   ),
+                ),
+              ),
+              Positioned(
+                bottom: 24,
+                right: 24,
+                child: FloatingActionButton(
+                  onPressed: () => animateToIndex(1),
+                  tooltip: 'Scroll to top',
+                  child: const Icon(Icons.arrow_upward),
                 ),
               ),
             ],
@@ -191,21 +264,54 @@ class TeamSelection extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(width: 2),
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          border: Border.all(
+            width: 2,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.08),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-        child: DropdownButton(
+        child: DropdownButton<Team>(
           underline: const SizedBox.shrink(),
-          icon: const Icon(null),
+          icon: const Icon(Icons.arrow_drop_down),
+          isExpanded: true,
           value: selectedTeam,
           items: teams
               .map(
                 (e) => DropdownMenuItem<Team>(
                   alignment: Alignment.center,
                   value: e,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Text('${e.name} [${e.code}]'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 12,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.15),
+                        child: Text(
+                          e.code,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          e.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               )

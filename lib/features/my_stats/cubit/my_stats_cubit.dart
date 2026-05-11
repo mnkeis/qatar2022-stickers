@@ -11,12 +11,12 @@ import 'package:stickers_repository/stickers_repository.dart';
 part 'my_stats_state.dart';
 
 class MyStatsCubit extends Cubit<MyStatsState> {
-  MyStatsCubit(this.stickersRepository) : super(const MyStatsState());
+  MyStatsCubit(this._stickersRepository) : super(const MyStatsState());
 
-  final StickersRepository stickersRepository;
+  final StickersRepository _stickersRepository;
 
   Future<void> load(String id) async {
-    final album = await stickersRepository.getAlbum(id);
+    final album = await _stickersRepository.getAlbum(id);
     final totalStickers = album.teams.fold(
       0,
       (previousQuantity, team) =>
@@ -50,8 +50,8 @@ class MyStatsCubit extends Cubit<MyStatsState> {
         collectedStickers: collectedStickers,
         swapStickers: swapStickers,
         missingStickers: totalStickers - collectedStickers,
-        completedPercent:
-            (collectedStickers / totalStickers * 100).toStringAsPrecision(3),
+        completedPercent: (collectedStickers / totalStickers * 100)
+            .toStringAsPrecision(3),
       ),
     );
   }

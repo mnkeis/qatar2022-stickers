@@ -9,9 +9,9 @@ class FriendSwapsCubit extends Cubit<FriendSwapsState> {
   FriendSwapsCubit({
     required StickersRepository stickersRepository,
     required Friend friend,
-  })  : _stickersRepository = stickersRepository,
-        _friend = friend,
-        super(FriendSwapsInitial());
+  }) : _stickersRepository = stickersRepository,
+       _friend = friend,
+       super(FriendSwapsInitial());
 
   final StickersRepository _stickersRepository;
   final Friend _friend;
@@ -69,7 +69,7 @@ class FriendSwapsCubit extends Cubit<FriendSwapsState> {
           stickersToGive: stickersToGive,
         ),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(FriendSwapsError(e.toString()));
     }
   }

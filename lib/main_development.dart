@@ -5,6 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:album_master/app/app.dart';
+import 'package:album_master/bootstrap.dart';
 import 'package:auth_repository/auth_repository.dart';
 import 'package:firebase_auth_api/firebase_auth_api.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,8 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friends_repository/friends_repository.dart';
 // import 'package:local_storage_stickers_api/local_storage_stickers_api.dart';
-import 'package:qatar2022_stickers/app/app.dart';
-import 'package:qatar2022_stickers/bootstrap.dart';
 import 'package:rtdb_friends_api/rtdb_friends_api.dart';
 import 'package:rtdb_stickers_api/rtdb_stickers_api.dart';
 // import 'package:shared_preferences/shared_preferences.dart';

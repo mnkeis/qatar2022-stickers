@@ -9,19 +9,20 @@ import 'package:bloc/bloc.dart';
 import 'package:stickers_repository/stickers_repository.dart';
 
 class MyMissingsCubit extends Cubit<Album> {
-  MyMissingsCubit(this.stickersRepository)
-      : super(const Album(id: '', name: '', teams: []));
+  MyMissingsCubit(this._stickersRepository)
+    : super(const Album(id: '', name: '', teams: []));
 
-  final StickersRepository stickersRepository;
+  final StickersRepository _stickersRepository;
 
   Future<void> load(String id) async {
-    final album = await stickersRepository.getAlbum(id);
+    final album = await _stickersRepository.getAlbum(id);
     final swaps = album.copyWith(
       teams: album.teams
           .map(
             (e) => e.copyWith(
-              stickers:
-                  e.stickers.where((element) => element.qty == 0).toList(),
+              stickers: e.stickers
+                  .where((element) => element.qty == 0)
+                  .toList(),
             ),
           )
           .where((team) => team.stickers.isNotEmpty)

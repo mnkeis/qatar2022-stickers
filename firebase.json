@@ -1,10 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  }
-}
+{"flutter":{"platforms":{"android":{"default":{"projectId":"qatar2022-stickers-dev","appId":"1:824466059489:android:ce1364679a71da900fc7a0","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"qatar2022-stickers-dev","appId":"1:824466059489:ios:04cb052659b34f7d0fc7a0","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"qatar2022-stickers-dev","appId":"1:824466059489:ios:5075ef78fcf743be0fc7a0","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options_dev.dart":{"projectId":"qatar2022-stickers-dev","configurations":{"android":"1:824466059489:android:ce1364679a71da900fc7a0","ios":"1:824466059489:ios:04cb052659b34f7d0fc7a0","macos":"1:824466059489:ios:5075ef78fcf743be0fc7a0","web":"1:824466059489:web:d7f1af359159a2a10fc7a0"}}}}}}
