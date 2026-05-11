@@ -11,8 +11,8 @@ class RtdbFriendsApi implements FriendsApi {
   RtdbFriendsApi({
     FirebaseDatabase? database,
     FirebaseAuth? auth,
-  })  : _database = database ?? FirebaseDatabase.instance,
-        _auth = auth ?? FirebaseAuth.instance;
+  }) : _database = database ?? FirebaseDatabase.instance,
+       _auth = auth ?? FirebaseAuth.instance;
 
   final FirebaseDatabase _database;
   final FirebaseAuth _auth;
@@ -34,7 +34,7 @@ class RtdbFriendsApi implements FriendsApi {
             .toList();
       }
       return [];
-    } catch (_) {
+    } on Exception catch (_) {
       throw FriendsException(FriendsFailure.unknown);
     }
   }
@@ -52,8 +52,9 @@ class RtdbFriendsApi implements FriendsApi {
     }
 
     try {
-      final userRef = _database
-          .ref('users/${email.replaceAll('@', '_at_').replaceAll('.', '_')}');
+      final userRef = _database.ref(
+        'users/${email.replaceAll('@', '_at_').replaceAll('.', '_')}',
+      );
       final userSnapshot = await userRef.get();
       final userValue = userSnapshot.value;
       if (userValue != null && userValue is Map<dynamic, dynamic>) {
@@ -67,7 +68,7 @@ class RtdbFriendsApi implements FriendsApi {
         });
         return;
       }
-    } catch (e) {
+    } on Exception catch (_) {
       throw FriendsException(FriendsFailure.unknown);
     }
     throw FriendsException(FriendsFailure.userNotFound);

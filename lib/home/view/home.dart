@@ -5,11 +5,13 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:async';
+
+import 'package:album_master/app/app.dart';
+import 'package:album_master/home/cubit/albums_cubit.dart';
+import 'package:album_master/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qatar2022_stickers/app/app.dart';
-import 'package:qatar2022_stickers/home/cubit/albums_cubit.dart';
-import 'package:qatar2022_stickers/l10n/l10n.dart';
 import 'package:stickers_repository/stickers_repository.dart';
 
 import '../../features/features.dart';
@@ -54,15 +56,18 @@ class AlbumSelectionPage extends StatelessWidget {
                               padding: const EdgeInsets.all(5),
                               child: InkWell(
                                 onTap: () {
-                                  context.read<AlbumsCubit>().addAlbum(album);
+                                  unawaited(
+                                    context.read<AlbumsCubit>().addAlbum(album),
+                                  );
                                   Navigator.of(dialogContext).pop();
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
                                     album.name,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleMedium,
                                   ),
                                 ),
                               ),

@@ -1,5 +1,5 @@
+import 'package:album_master/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:qatar2022_stickers/l10n/l10n.dart';
 
 class ErrorDialog extends StatelessWidget {
   const ErrorDialog({
@@ -16,7 +16,7 @@ class ErrorDialog extends StatelessWidget {
     return AlertDialog(
       content: Text(message),
       actions: [
-        if (child != null) child!,
+        ?child,
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(),
           child: Text(context.l10n.okButtonText),

@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:stickers_api/stickers_api.dart' show Sticker;
 
 part 'isar_sticker.g.dart';
@@ -17,10 +17,10 @@ class IsarSticker {
 
   /// Build collection from domain model
   factory IsarSticker.fromDomain(Sticker sticker) => IsarSticker(
-        qty: sticker.qty,
-        index: sticker.index,
-        name: sticker.name,
-      );
+    qty: sticker.qty,
+    index: sticker.index,
+    name: sticker.name,
+  );
 
   /// A description for qty
   int? qty;
@@ -33,8 +33,8 @@ class IsarSticker {
 
   /// Exports instance to domain class
   Sticker toDomain() => Sticker(
-        qty: qty ?? 0,
-        index: index ?? 0,
-        name: name,
-      );
+    qty: qty ?? 0,
+    index: index ?? 0,
+    name: name,
+  );
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(qatar2022_stickers LANGUAGES CXX)
+project(album_master LANGUAGES CXX)
 
-set(BINARY_NAME "qatar2022_stickers")
+set(BINARY_NAME "album_master")
 
 cmake_policy(SET CMP0063 NEW)
 

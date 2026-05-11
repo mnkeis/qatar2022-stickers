@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:isar_stickers_api/src/models/models.dart';
 import 'package:stickers_api/stickers_api.dart' show Sticker, Team;
 
@@ -18,10 +18,10 @@ class IsarTeam {
 
   /// Build collection from domain model
   factory IsarTeam.fromDomain(Team team) => IsarTeam(
-        code: team.code,
-        name: team.name,
-        stickers: team.stickers.map(IsarSticker.fromDomain).toList(),
-      );
+    code: team.code,
+    name: team.name,
+    stickers: team.stickers.map(IsarSticker.fromDomain).toList(),
+  );
 
   /// The team code
   String? code;
@@ -34,10 +34,10 @@ class IsarTeam {
 
   /// Exports the instance to a domain class
   Team toDomain() => Team(
-        code: code ?? '',
-        name: name ?? '',
-        stickers:
-            stickers?.map((isarSticker) => isarSticker.toDomain()).toList() ??
-                <Sticker>[],
-      );
+    code: code ?? '',
+    name: name ?? '',
+    stickers:
+        stickers?.map((isarSticker) => isarSticker.toDomain()).toList() ??
+        <Sticker>[],
+  );
 }

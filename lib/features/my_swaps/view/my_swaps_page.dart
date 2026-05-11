@@ -8,9 +8,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qatar2022_stickers/core/functions/stickers_to_string.dart';
-import 'package:qatar2022_stickers/features/my_swaps/my_swaps.dart';
-import 'package:qatar2022_stickers/l10n/l10n.dart';
+import 'package:album_master/core/functions/stickers_to_string.dart';
+import 'package:album_master/features/my_swaps/my_swaps.dart';
+import 'package:album_master/l10n/l10n.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:stickers_repository/stickers_repository.dart';
 

@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:local_storage_stickers_api/local_storage_stickers_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';

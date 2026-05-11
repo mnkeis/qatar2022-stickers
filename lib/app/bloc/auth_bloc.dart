@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Future<void> close() {
-    _userStream.cancel();
+    unawaited(_userStream.cancel());
     return super.close();
   }
 }

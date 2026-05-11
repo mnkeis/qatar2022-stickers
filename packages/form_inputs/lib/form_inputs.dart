@@ -1,6 +1,3 @@
-/// Form Inputs definitions
-library form_inputs;
-
 export './src/confirmed_password.dart';
 export './src/email.dart';
 export './src/name.dart';

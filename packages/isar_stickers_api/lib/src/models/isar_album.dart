@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:isar_stickers_api/src/models/models.dart';
 import 'package:stickers_api/stickers_api.dart' show Album, Team;
 
@@ -36,9 +36,8 @@ class IsarAlbum {
 
   /// Exports the instance to a domain class
   Album toDomain() => Album(
-        id: id.toString(),
-        name: name ?? '',
-        teams:
-            teams?.map((isarTeam) => isarTeam.toDomain()).toList() ?? <Team>[],
-      );
+    id: id.toString(),
+    name: name ?? '',
+    teams: teams?.map((isarTeam) => isarTeam.toDomain()).toList() ?? <Team>[],
+  );
 }

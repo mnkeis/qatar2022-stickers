@@ -1,8 +1,10 @@
+import 'dart:async';
+
+import 'package:album_master/core/widgets/widgets.dart';
+import 'package:album_master/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friends_repository/friends_repository.dart';
-import 'package:qatar2022_stickers/core/widgets/widgets.dart';
-import 'package:qatar2022_stickers/l10n/l10n.dart';
 import 'package:stickers_repository/stickers_repository.dart';
 
 import '../cubit/friend_swaps_cubit.dart';
@@ -66,10 +68,12 @@ class FriendSwapsView extends StatelessWidget {
     return BlocConsumer<FriendSwapsCubit, FriendSwapsState>(
       listener: (context, state) {
         if (state is FriendSwapsError) {
-          showDialog<void>(
-            context: context,
-            builder: (context) => ErrorDialog(
-              message: l10n.friendSwapsFriendFailure,
+          unawaited(
+            showDialog<void>(
+              context: context,
+              builder: (context) => ErrorDialog(
+                message: l10n.friendSwapsFriendFailure,
+              ),
             ),
           );
         }

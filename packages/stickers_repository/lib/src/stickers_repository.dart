@@ -23,9 +23,10 @@ class StickersRepository {
 
   /// Returns available albums
   List<Album> availableAlbums() => [
-        ConmebolCopaAmericaUsa2024EmptyAlbum(),
-        FifaWorldCupQatar2022EmptyAlbum(),
-      ];
+    FifaWorldCupEEUUMexicoCanada2026EmptyAlbum(),
+    ConmebolCopaAmericaUsa2024EmptyAlbum(),
+    FifaWorldCupQatar2022EmptyAlbum(),
+  ];
 
   /// Save album
   Future<void> saveAlbum(Album album) {

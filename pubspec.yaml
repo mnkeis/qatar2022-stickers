@@ -1,44 +1,44 @@
-name: qatar2022_stickers
-description: Take control of your FIFA World Cup stickers album.
+name: album_master
+description: Track your album collection.
 version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: 3.3.22
+  sdk: ^3.11.0
+  flutter: ^3.41.0
 
 dependencies:
   auth_repository:
     path: ./packages/auth_repository
 
-  bloc: ^8.1.4
-  collection: ^1.18.0
+  bloc: ^9.2.0
+  collection: ^1.19.1
 
-  equatable: ^2.0.5
-  firebase_auth: ^4.19.6
+  equatable: ^2.0.8
+  firebase_auth: ^6.4.0
   firebase_auth_api:
     path: ./packages/firebase_auth_api
 
-  firebase_core: ^2.31.1
-  firebase_database: ^10.5.6
+  firebase_core: ^4.7.0
+  firebase_database: ^12.3.0
   flow_builder: ^0.1.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.5
+  flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
 
   form_inputs:
     path: ./packages/form_inputs
 
-  formz: ^0.7.0
+  formz: ^0.8.0
 
   friends_repository:
     path: ./packages/friends_repository
 
-  intl: ^0.19.0
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+  intl: ^0.20.2
+  isar_community: ^3.3.2
+  isar_community_flutter_libs: ^3.3.2
   
   isar_stickers_api:
     path: ./packages/isar_stickers_api
@@ -52,23 +52,24 @@ dependencies:
     path: ./packages/rtdb_stickers_api
 
   scrollable_positioned_list: ^0.3.8
-  share_plus: ^9.0.0
+  share_plus: ^13.1.0
   stickers_repository:
     path: ./packages/stickers_repository
   
   ui:
     path: ./packages/ui
-  
 
 dev_dependencies:
-  bloc_test: ^9.1.7
+  bloc_lint: ^0.4.1
+  bloc_test: ^10.0.0
+  bloc_tools: ^0.1.0-dev.24
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.3
-  very_good_analysis: ^5.1.0
+  mocktail: ^1.0.5
+  very_good_analysis: ^10.2.0
 
 flutter:
-  uses-material-design: true
   generate: true
+  uses-material-design: true
   assets:
     - assets/

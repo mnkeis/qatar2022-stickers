@@ -1,8 +1,10 @@
+import 'dart:async';
+
+import 'package:album_master/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:friends_repository/friends_repository.dart';
-import 'package:qatar2022_stickers/l10n/l10n.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:ui/ui.dart';
 
@@ -77,11 +79,13 @@ class FriendsView extends StatelessWidget {
                   icon: const Icon(Icons.share),
                 );
             }
-            showDialog<void>(
-              context: context,
-              builder: (context) => ErrorDialog(
-                message: message,
-                child: child,
+            unawaited(
+              showDialog<void>(
+                context: context,
+                builder: (context) => ErrorDialog(
+                  message: message,
+                  child: child,
+                ),
               ),
             );
           }

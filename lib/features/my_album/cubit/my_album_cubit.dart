@@ -12,16 +12,16 @@ import 'package:collection/collection.dart';
 import 'package:stickers_repository/stickers_repository.dart';
 
 class MyAlbumCubit extends Cubit<Album> {
-  MyAlbumCubit(this.stickersRepository)
-      : super(const Album(id: '', name: '', teams: []));
+  MyAlbumCubit(this._stickersRepository)
+    : super(const Album(id: '', name: '', teams: []));
 
-  final StickersRepository stickersRepository;
+  final StickersRepository _stickersRepository;
   late final StreamSubscription<Album> _streamSubscription;
 
   Future<void> load(String id) async {
-    final album = await stickersRepository.getAlbum(id);
+    final album = await _stickersRepository.getAlbum(id);
     emit(album);
-    _streamSubscription = stickersRepository.album(id).listen(emit);
+    _streamSubscription = _stickersRepository.album(id).listen(emit);
   }
 
   void increment({
@@ -44,7 +44,7 @@ class MyAlbumCubit extends Cubit<Album> {
         return team;
       }).toList(),
     );
-    stickersRepository.saveAlbum(updated);
+    unawaited(_stickersRepository.saveAlbum(updated));
     // emit(updated);
   }
 
@@ -69,13 +69,13 @@ class MyAlbumCubit extends Cubit<Album> {
         return team;
       }).toList(),
     );
-    stickersRepository.saveAlbum(updated);
+    unawaited(_stickersRepository.saveAlbum(updated));
     // emit(updated);
   }
 
   @override
   Future<void> close() {
-    _streamSubscription.cancel();
+    unawaited(_streamSubscription.cancel());
     return super.close();
   }
 }

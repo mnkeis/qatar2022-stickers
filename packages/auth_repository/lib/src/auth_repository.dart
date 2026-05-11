@@ -27,7 +27,7 @@ class AuthRepository {
       return Right(user);
     } on LoginException catch (e) {
       return Left(e);
-    } catch (e) {
+    } on Exception catch (_) {
       return Left(LoginException(LoginFailure.unknown));
     }
   }
@@ -54,7 +54,7 @@ class AuthRepository {
     try {
       final user = await _authApi.loginWithGoogle();
       return right(user);
-    } catch (e) {
+    } on Exception catch (_) {
       return left(LoginException(LoginFailure.unknown));
     }
   }

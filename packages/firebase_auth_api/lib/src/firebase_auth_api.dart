@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:auth_api/auth_api.dart';
 import 'package:crypto/crypto.dart';
@@ -8,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_api/src/auth_failure.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -20,11 +22,13 @@ class FirebaseAuthApi implements AuthApi {
   FirebaseAuthApi({
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+  }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+       _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+
+  bool _isInitialized = false;
 
   /// Whether or not the current environment is web
   /// Should only be overriden for testing purposes. Otherwise,
@@ -47,6 +51,15 @@ class FirebaseAuthApi implements AuthApi {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       return user;
     });
+  }
+
+  /// Initialize GoogleSignIn instance
+  /// Must be called before using any Google Sign-In methods
+  Future<void> _ensureInitialized() async {
+    if (!_isInitialized) {
+      await _googleSignIn.initialize();
+      _isInitialized = true;
+    }
   }
 
   /// Sends the verification email to the current user.
@@ -98,15 +111,16 @@ class FirebaseAuthApi implements AuthApi {
       );
 
       // Create an `OAuthCredential` from the credential returned by Apple.
-      final oauthCredential =
-          firebase_auth.OAuthProvider('apple.com').credential(
-        idToken: appleCredential.identityToken,
-        rawNonce: rawNonce,
-      );
+      final oauthCredential = firebase_auth.OAuthProvider('apple.com')
+          .credential(
+            idToken: appleCredential.identityToken,
+            rawNonce: rawNonce,
+          );
 
       // Sign in the user with Firebase.
-      final userCredential =
-          await _firebaseAuth.signInWithCredential(oauthCredential);
+      final userCredential = await _firebaseAuth.signInWithCredential(
+        oauthCredential,
+      );
 
       final user = userCredential.user;
 
@@ -167,6 +181,8 @@ class FirebaseAuthApi implements AuthApi {
   @override
   Future<User> loginWithGoogle() async {
     try {
+      await _ensureInitialized();
+
       late final firebase_auth.AuthCredential credential;
       if (isWeb) {
         final googleProvider = firebase_auth.GoogleAuthProvider();
@@ -177,35 +193,66 @@ class FirebaseAuthApi implements AuthApi {
         if (user != null) {
           return user.toUser;
         }
-      } else {
-        final googleUser = await _googleSignIn.signIn();
-        if (googleUser != null) {
-          final googleAuth = await googleUser.authentication;
-          credential = firebase_auth.GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken,
-            idToken: googleAuth.idToken,
-          );
-          final userCredential =
-              await _firebaseAuth.signInWithCredential(credential);
-          final user = userCredential.user;
-          if (user != null) {
-            return user.toUser;
-          }
+      } else if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
+        final account = await _googleSignIn.authenticate();
+        final googleAuth = account.authentication;
+        credential = firebase_auth.GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+        );
+        final userCredential = await _firebaseAuth.signInWithCredential(
+          credential,
+        );
+        final user = userCredential.user;
+        if (user != null) {
+          return user.toUser;
         }
       }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw FirebaseAuthLoginException.fromFirebaseAuthException(e.code);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        developer.log('User cancelled Google Sign-In');
+        throw LoginException(
+          LoginFailure.unknown,
+        );
+      }
+      developer.log('Google Sign-In exception: $e');
+    } on PlatformException catch (e) {
+      developer.log('Google Sign-In exception: $e');
     }
     throw LoginException(LoginFailure.unknown);
   }
 
+  // } on firebase_auth.FirebaseAuthException catch (e) {
+  //       throw FirebaseAuthLoginException.fromFirebaseAuthException(e.code);
+  //     } on GoogleSignInException catch (e) {
+  //       if (e.code == GoogleSignInExceptionCode.canceled) {
+  //         developer.log('User cancelled Google Sign-In');
+  //         throw LoginException(
+  //           LoginFailure.userCancelled,
+  //           code: 'login-flow-cancelled',
+  //         );
+  //       }
+  //       developer.log('Google Sign-In exception: $e');
+  //       throw GoogleSignException.fromGoogleSignException(e.toString());
+  //     } on PlatformException catch (e) {
+  //       developer.log('Google Sign-In exception: $e');
+  //       throw GoogleSignException.fromGoogleSignException(e.details);
+  //     }
+  //     developer.log('User cancelled');
+  //     throw LoginException(
+  //       LoginFailure.userCancelled,
+  //       code: 'login-flow-cancelled',
+  //     );
+
   @override
   Future<void> logout() async {
     try {
-      await Future.wait([
-        _firebaseAuth.signOut(),
-        _googleSignIn.signOut(),
-      ]);
+      await _ensureInitialized();
+      await _firebaseAuth.signOut();
+      if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
+        await _googleSignIn.signOut();
+      }
     } on Exception catch (_) {
       throw LogoutException();
     }

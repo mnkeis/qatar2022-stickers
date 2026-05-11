@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:isar_stickers_api/src/models/models.dart';
 import 'package:stickers_api/stickers_api.dart';
 
@@ -21,7 +21,9 @@ class IsarStickersApi implements StickersApi {
   /// Listen to Album changes
   @override
   Stream<Album> album(String id) {
-    return _isarInstance.isarAlbums.watchObject(int.parse(id)).map(
+    return _isarInstance.isarAlbums
+        .watchObject(int.parse(id))
+        .map(
           (isarAlbum) =>
               isarAlbum?.toDomain() ??
               Album(
